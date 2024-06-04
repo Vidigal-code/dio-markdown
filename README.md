@@ -28,3 +28,7 @@ The project was created without a specific goal, other than to serve as practice
 Sinta-se à vontade para utilizar este projeto como base ou inspiração para seus próprios projetos.
 
 Feel free to use this project as a base or inspiration for your own projects.
+
+## Exemplo / Example
+
+![GIF Exemplo / Example GIF](https://github.com/Vidigal-code/dio-markdown/blob/main/src/assets/dio-markdown-example.gif)
