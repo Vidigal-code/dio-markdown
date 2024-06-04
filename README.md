@@ -31,7 +31,7 @@ Feel free to use this project as a base or inspiration for your own projects.
 
 ## Exemplo / Example
 
-[Click Here to view the GitHub Repository](https://github.com/Vidigal-code/dio-markdown)
+[Click Here to view the GitHub Repository](https://vidigal-code.github.io/dio-markdown/)
 
 
 ![GIF Exemplo / Example GIF](https://github.com/Vidigal-code/dio-markdown/blob/main/src/assets/dio-markdown-example.gif)
