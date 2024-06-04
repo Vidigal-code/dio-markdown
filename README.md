@@ -21,7 +21,7 @@ The project was created without a specific goal, other than to serve as practice
 ## Informações Adicionais / Additional Information
 
 - **Curso**: Plataforma [dio.me](https://web.dio.me/lab/desafio-de-projeto-contribuindo-em-um-projeto-open-source-no-github/learning/913f26fd-1018-4643-b59a-6356ea77dc2e?back=/track/santander-bootcamp-2023-backend-java) com o objetivo de testar e explorar a criatividade no desenvolvimento de aplicações web. Sinta-se à vontade para usar e adaptar conforme necessário.
- /[dio.me](https://web.dio.me/lab/desafio-de-projeto-contribuindo-em-um-projeto-open-source-no-github/learning/913f26fd-1018-4643-b59a-6356ea77dc2e?back=/track/santander-bootcamp-2023-backend-java) com o objetivo de testar e explorar a criatividade no desenvolvimento de aplicações web. Sinta-se à vontade para usar e adaptar conforme necessário.
+[dio.me](https://web.dio.me/lab/desafio-de-projeto-contribuindo-em-um-projeto-open-source-no-github/learning/913f26fd-1018-4643-b59a-6356ea77dc2e?back=/track/santander-bootcamp-2023-backend-java) com o objetivo de testar e explorar a criatividade no desenvolvimento de aplicações web. Sinta-se à vontade para usar e adaptar conforme necessário.
  platform
 - **Propósito**: Testar e explorar a criatividade no desenvolvimento de um editor de markdown para GitHub. / To test and explore creativity in developing a GitHub markdown editor.
 
