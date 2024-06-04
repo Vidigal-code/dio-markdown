@@ -93,21 +93,22 @@ const MarkdownEditor: React.FC = () => {
     }
   };
 
-  const useBaseMarkdown = async () => {
-    try {
-      const response = await fetch(`/src/example/example.md`);
-      if (!response.ok) {
-        throw new Error("Base Markdown não disponível.");
-      }
-      const text = await response.text();
-      setMarkdownContent(text);
-      setLiveMarkdown(text);
-      setError(null);
-      saveToHistory(text);
-    } catch (error) {
-      setError("Erro ao carregar base Markdown.");
+const useBaseMarkdown = async () => {
+  try {
+    const response = await fetch("https://raw.githubusercontent.com/Vidigal-code/dio-markdown/main/src/example/example.md");
+    if (!response.ok) {
+      throw new Error("Base Markdown não disponível.");
     }
-  };
+    const text = await response.text();
+    setMarkdownContent(text);
+    setLiveMarkdown(text);
+    setError(null);
+    saveToHistory(text);
+  } catch (error) {
+    setError("Erro ao carregar base Markdown.");
+  }
+};
+
 
   const undoMarkdown = () => {
     if (historyIndex > 0) {
