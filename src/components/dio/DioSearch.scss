@@ -1,3 +1,67 @@
+.dio-search img {
+  max-width: 900px;
+  margin: 2px auto; 
+  display: block; 
+}
+
+
+.dio-search pre {
+  max-width: 2000px; 
+  font-size: 20px; 
+  word-wrap: break-word; 
+  white-space: pre-wrap; 
+}
+
+.dio-search code {
+  max-width: 2000px; 
+  font-size: 20px; 
+  word-wrap: break-word; 
+  white-space: pre-wrap; 
+}
+
+.dio-search p {
+  max-width: 2000px; 
+  font-size: 10px; 
+  word-wrap: break-word; 
+  white-space: pre-wrap; 
+}
+
+
+.dio-search h1,
+.dio-search h2,
+.dio-search h3,
+.dio-search h4,
+.dio-search h5,
+.dio-search h6 {
+  color: #000;
+  padding-bottom: 0.3em;
+  font-size: 1.5em;
+  border-bottom: 0.2px solid #262b32;
+  line-height: 1.25;
+}
+
+.dio-search.dark-mode h1,
+.dio-search.dark-mode h2,
+.dio-search.dark-mode h3,
+.dio-search.dark-mode h4,
+.dio-search.dark-mode h5,
+.dio-search.dark-mode h6 {
+  color: #fff;
+  padding-bottom: 0.3em;
+  font-size: 1.5em;
+  border-bottom: 0.2px solid #262b32;
+  line-height: 1.25;
+}
+
+.dio-search.dark-mode br {
+  margin-bottom: 21px;
+}
+
+.dio-search br {
+  margin-bottom: 21px;
+}
+
+
 .dio-search {
   max-width: 1000px;
   margin: 20px auto;
@@ -95,6 +159,19 @@
   &:hover {
     background-color: #5fcc00;
   }
+
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+    align-items: center; 
+    list-style-type: none;
+    padding: 10px 25px;
+    width: 30px;
+    height: 30px;
+    font-size: 7px;
+  }
+  
 }
 
 .button-markdown.dark-mode {
@@ -173,6 +250,42 @@
 }
 
 @media only screen and (max-width: 768px) {
+
+
+  .dio-search h1,
+  .dio-search h2,
+  .dio-search h3,
+  .dio-search h4,
+  .dio-search h5,
+  .dio-search h6 {
+    color: #000;
+    padding-bottom: 0.3em;
+    font-size: 1.5em;
+    border-bottom: 0.2px solid #262b32;
+    line-height: 1.25;
+  }
+  
+  .dio-search.dark-mode h1,
+  .dio-search.dark-mode h2,
+  .dio-search.dark-mode h3,
+  .dio-search.dark-mode h4,
+  .dio-search.dark-mode h5,
+  .dio-search.dark-mode h6 {
+    color: #fff;
+    padding-bottom: 0.3em;
+    font-size: 1.5em;
+    border-bottom: 0.2px solid #262b32;
+    line-height: 1.25;
+  }
+  
+  .dio-search.dark-mode br {
+    margin-bottom: 21px;
+  }
+  
+  .dio-search br {
+    margin-bottom: 21px;
+  }
+
   .dio-search {
     max-width: 335px;
     margin: 10px auto;
@@ -185,6 +298,13 @@
   }
 
   .dio-search img {
+    display: block; 
+    max-width: 280px;
+    margin-bottom: 20px; 
+  }
+  
+  
+  .dio-search p {
     max-width: 280px;
   }
 

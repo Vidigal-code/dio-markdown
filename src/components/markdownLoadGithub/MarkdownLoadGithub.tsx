@@ -4,7 +4,12 @@ import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import "./MarkdownLoadGithub.scss";
 import { useDarkMode } from "../button/DarkModeProvider";
+import twemoji from "twemoji";
 
+
+interface ImgProps {
+  alt: string;
+}
 
 const MarkdownEditor: React.FC = () => {
   const [markdownContent, setMarkdownContent] = useState<string>("");
@@ -15,7 +20,6 @@ const MarkdownEditor: React.FC = () => {
   const [liveMarkdown, setLiveMarkdown] = useState<string>("");
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
-
   const inputFileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -36,7 +40,9 @@ const MarkdownEditor: React.FC = () => {
         setError("Erro ao carregar README.md.");
       }
     };
-    fetchData();
+    if (username) {
+      fetchData();
+    }
   }, [username]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -93,22 +99,23 @@ const MarkdownEditor: React.FC = () => {
     }
   };
 
-const useBaseMarkdown = async () => {
-  try {
-    const response = await fetch("https://raw.githubusercontent.com/Vidigal-code/dio-markdown/main/src/example/example.md");
-    if (!response.ok) {
-      throw new Error("Base Markdown não disponível.");
+  const useBaseMarkdown = async () => {
+    try {
+      const response = await fetch(
+        "https://raw.githubusercontent.com/Vidigal-code/dio-markdown/main/src/example/example.md"
+      );
+      if (!response.ok) {
+        throw new Error("Base Markdown não disponível.");
+      }
+      const text = await response.text();
+      setMarkdownContent(text);
+      setLiveMarkdown(text);
+      setError(null);
+      saveToHistory(text);
+    } catch (error) {
+      setError("Erro ao carregar base Markdown.");
     }
-    const text = await response.text();
-    setMarkdownContent(text);
-    setLiveMarkdown(text);
-    setError(null);
-    saveToHistory(text);
-  } catch (error) {
-    setError("Erro ao carregar base Markdown.");
-  }
-};
-
+  };
 
   const undoMarkdown = () => {
     if (historyIndex > 0) {
@@ -152,7 +159,7 @@ const useBaseMarkdown = async () => {
           </button>
         </div>
         {error && <p className="error">{error}</p>}
-        <div className="editor-wrapper">
+        <div className={`editor-wrapper${darkMode ? "-dark-mode" : ""}`}>
           <textarea
             className={`markdown-editor ${darkMode ? "dark-mode" : ""}`}
             placeholder="Escreva seu markdown aqui..."

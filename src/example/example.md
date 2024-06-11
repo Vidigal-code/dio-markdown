@@ -54,7 +54,7 @@
 <br/>
 <details>
 
-  <summary><b>:computer:Information</b></summary>
+  <summary><b>💻Information</b></summary>
   </br>
 
 - >``📲Link to my portfolio`` : { [Portfolio](https://vidigal-code.github.io/React-portfolio/) }
@@ -87,8 +87,8 @@
 <br/>
 
 <div align="center">
-<img  src="https://github.com/Vidigal-code/github-stats/blob/master/generated/overview.svg" alt="Vidigal-code"/>  
-<img  src="https://github.com/Vidigal-code/github-stats/blob/master/generated/languages.svg" alt="Vidigal-code"/>
+<img src="https://raw.githubusercontent.com/Vidigal-code/github-stats/master/generated/overview.svg" alt="Vidigal-code">  
+<img src="https://raw.githubusercontent.com/Vidigal-code/github-stats/master/generated/languages.svg" alt="Vidigal-code">
 </div>
 
  <br/>

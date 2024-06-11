@@ -1,5 +1,6 @@
 .header {
-  max-width: 1000px;
+  max-width: 1600px;
+  min-width: 1000px;
   color: #fff;
   display: flex;
   justify-content: space-between; 
@@ -10,6 +11,13 @@
   border: 1px solid #e1e4e8;
   border-radius: 6px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+@media only screen and (max-width: 1600px) {
+ .header {
+  max-width: 1100px;
+  min-width: 320px; 
+  }
 }
 
 .header-text {

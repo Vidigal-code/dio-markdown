@@ -1,26 +1,171 @@
+.markdown-load-github h1,
+.markdown-load-github h2,
+.markdown-load-github h3,
+.markdown-load-github h4,
+.markdown-load-github h5,
+.markdown-load-github h6 {
+  color: #000;
+  padding-bottom: 0.3em;
+  font-size: 1.5em;
+  border-bottom: 0.2px solid #262b32;
+  line-height: 1.25;
+}
+
+.markdown-load-github.dark-mode a {
+  color: #fff;
+}
+
+.markdown-load-github.dark-mode a:hover {
+  color: rgb(147, 255, 125);
+}
+
+.markdown-load-github a:hover {
+  color: rgb(147, 255, 125);
+}
+
+.markdown-load-github.dark-mode h1,
+.markdown-load-github.dark-mode h2,
+.markdown-load-github.dark-mode h3,
+.markdown-load-github.dark-mode h4,
+.markdown-load-github.dark-mode h5,
+.markdown-load-github.dark-mode h6 {
+  color: #fff;
+  padding-bottom: 0.3em;
+  font-size: 1.5em;
+  border-bottom: 0.2px solid #262b32;
+  line-height: 1.25;
+}
+
+.markdown-load-github.dark-mode br {
+  margin-bottom: 21px;
+}
+
+.markdown-load-github br {
+  margin-bottom: 21px;
+}
+
+.markdown-load-github {
+  details {
+    margin: 60px 20px;
+  }
+
+  summary {
+    cursor: pointer;
+  }
+
+  strong {
+    margin: 2px;
+  }
+
+  ul {
+    max-width: 200px;
+  }
+
+  li {
+    width: 500px;
+    text-align: left;
+  }
+
+  summary b::before {
+    font-weight: normal;
+  }
+}
+
 @media only screen and (min-width: 768px) {
   .markdown-load-github {
-    width: 1000px;
+    width: 1600px;
+    min-width: 1600px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
     border: 1px solid #e1e4e8;
     border-radius: 6px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+  }
 
-    &.dark-mode a {
-      color: rgb(255, 255, 255);
-      text-decoration: none;
-      font-size: 15px;
-      font-style: italic;
+  b {
+    font-size: 12px;
+    margin: 2px;
+  }
+
+  .markdown-load-github {
+    width: 1600px;
+    min-width: 1600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media only screen and (max-width: 1600px) {
+    .markdown-load-github {
+      max-width: 1100px;
+      min-width: 320px;
     }
   }
 
-  .markdown-load-github a {
-    color: rgb(1, 1, 1);
-    text-decoration: none;
+  .markdown-load-github img {
+    max-width: 440px;
+  }
+
+  .markdown-load-github p {
+    color: #000;
     font-size: 15px;
+    margin: 10px 4px;
+  }
+
+  .markdown-load-github.dark-mode p {
+    color: #fff;
+    font-size: 10px;
+    margin: 10px 4px;
+  }
+
+  .markdown-load-github li {
+    width: 250px;
+    text-align: left;
+  }
+
+  .markdown-load-github details {
+    font-size: 15px;
+    margin-bottom: 2px;
+  }
+
+  .markdown-load-github summary {
+    font-size: 18px;
+  }
+
+  .markdown-load-github a {
+    color: #000;
+    text-decoration: none;
     font-style: italic;
+    font-weight: 100;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    padding: 2px;
+  }
+
+  .markdown-load-github.dark-mode a {
+    color: #fff;
+    text-decoration: none;
+    font-style: italic;
+    font-weight: 100;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    padding: 2px;
+  }
+
+  .markdown-load-github p {
+    align-items: center;
+    font-size: 10px;
+    margin: 10px 2px;
   }
 
   .markdown-load-github textarea {
@@ -33,15 +178,76 @@
     padding: 20px;
     box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
   }
+}
+
+@media only screen and (min-width: 1600px) {
+  .markdown-load-github {
+    width: 1600px;
+    min-width: 1600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+  }
 
   .markdown-load-github img {
-    max-width: 400px;
+    max-width: 670px;
+  }
+
+  .markdown-load-github p {
+    color: #000;
+    max-width: 720px;
+    margin: 8px;
+    padding: 2px;
+    font-size: 20px;
+  }
+
+  .markdown-load-github.dark-mode p {
+    color: #fff;
+    max-width: 720px;
+    margin: 8px;
+    padding: 2px;
+    font-size: 20px;
+  }
+
+  b {
+    font-size: 20px;
+    padding: 4px;
+  }
+
+  .markdown-load-github li {
+    width: 650px;
+    text-align: left;
+  }
+
+  .markdown-load-github a {
+    color: rgb(1, 1, 1);
+    text-decoration: none;
+    font-style: italic;
+    font-weight: 100;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+  }
+
+  .markdown-load-github.dark-mode a {
+    color: #fff;
+    text-decoration: none;
+    font-style: italic;
+    font-weight: 100;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
   }
 }
 
 .button-download {
-  margin-top: 50px;
-  padding: 20px;
+  margin-top: 60px;
+  padding: 50px;
 }
 
 .input-button-wrapper {
@@ -77,8 +283,16 @@ input[type="text"] {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  &:hover {
-    background-color: #5fcc00;
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+    align-items: center;
+    list-style-type: none;
+    padding: 10px 25px;
+    width: 30px;
+    height: 30px;
+    font-size: 7px;
   }
 }
 
@@ -92,9 +306,25 @@ input[type="text"] {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  :hover {
-    background-color: #ff0000;
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+    align-items: center;
+    list-style-type: none;
+    padding: 10px 25px;
+    width: 30px;
+    height: 30px;
+    font-size: 7px;
   }
+}
+
+.button-markdown-bottom-del:hover {
+  background-color: #ff0000;
+}
+
+.button-markdown-bottom:hover {
+  background-color: #5fcc00;
 }
 
 .editor-wrapper {
@@ -103,50 +333,129 @@ input[type="text"] {
   gap: 20px;
   width: 100%;
   height: 700px;
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #ffffff;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    width: 10px;
+    height: 10px;
+    padding: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #dadada;
+  }
+}
+
+.editor-wrapper-dark-mode {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+  height: 700px;
+  background-color: #ffffff;
+  border-radius: 4px;
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #0d1117;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    width: 10px;
+    height: 10px;
+    padding: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #dadada;
+  }
 }
 
 @media only screen and (min-width: 768px) {
-  .markdown-editor {
-    flex: 1;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    overflow-y: auto;
-    width: 100%;
-    height: 700px;
-    padding: 25px;
-    background-color: #ffffff;
-    color: #000;
-    font-size: 17px;
+  .markdown-load-github {
+    .markdown-editor,
+    .markdown-preview {
+      flex: 1;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      overflow-y: auto;
+      width: 100%;
+      height: 700px;
+      padding: 35px;
+      background-color: #ffffff;
+      color: #000;
+      font-size: 17px;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
 
-    &.dark-mode {
-      background-color: #0d1117;
-      color: #ffffff;
+      &.dark-mode {
+        background-color: #0d1117;
+        color: #ffffff;
+      }
     }
-  }
 
-  .markdown-preview {
-    flex: 1;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    overflow-y: auto;
-    width: 100%;
-    height: 700px;
-    padding: 25px 100px;
-    background-color: #ffffff;
-    color: #000;
-
-    &.dark-mode {
-      background-color: #0d1117;
-      color: #ffffff;
+    .error {
+      color: red;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+      margin-bottom: 40px;
     }
-  }
-
-  .error {
-    color: red;
   }
 }
 
 @media only screen and (max-width: 768px) {
+  .markdown-load-github h1,
+  .markdown-load-github h2,
+  .markdown-load-github h3,
+  .markdown-load-github h4,
+  .markdown-load-github h5,
+  .markdown-load-github h6 {
+    color: #000;
+    padding-bottom: 0.3em;
+    font-size: 1.5em;
+    border-bottom: 0.2px solid #262b32;
+    line-height: 1.25;
+  }
+
+  .markdown-load-github.dark-mode h1,
+  .markdown-load-github.dark-mode h2,
+  .markdown-load-github.dark-mode h3,
+  .markdown-load-github.dark-mode h4,
+  .markdown-load-github.dark-mode h5,
+  .markdown-load-github.dark-mode h6 {
+    color: #fff;
+    padding-bottom: 0.3em;
+    font-size: 1.5em;
+    border-bottom: 0.2px solid #262b32;
+    line-height: 1.25;
+  }
+
+  .markdown-load-github.dark-mode br {
+    margin-bottom: 21px;
+  }
+
+  .markdown-load-github br {
+    margin-bottom: 21px;
+  }
+
   .markdown-load-github {
     max-width: 350px;
     margin: 10px auto;
@@ -165,7 +474,7 @@ input[type="text"] {
   }
 
   .markdown-load-github img {
-    max-width: 280px;
+    max-width: 480px;
     margin: 10px auto;
   }
 
@@ -208,41 +517,71 @@ input[type="text"] {
     flex-direction: row;
     gap: 10px;
     height: 600px;
+
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: #ffffff;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #000000;
+      width: 5px;
+      height: 5px;
+      padding: 2px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #dadada;
+    }
+  }
+
+  .editor-wrapper-dark-mode {
+    flex-direction: row;
+    gap: 10px;
+    height: 600px;
+
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: #0d1117;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #ffffff;
+      width: 5px;
+      height: 5px;
+      padding: 2px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #dadada;
+    }
   }
 
   .markdown-editor,
   .markdown-preview {
     flex: 1;
     border: 1px solid #ccc;
-    border-radius: 4px;
     overflow-y: auto;
     height: 600px;
     width: 100%;
     padding: 2px 10px;
-  }
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    color: #000000;
 
-  .markdown-preview.dark-mode {
-    flex: 1;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    overflow-y: auto;
-    height: 600px;
-    width: 100%;
-    padding: 10px;
-    background-color: #0d1117;
-    color: #fff;
-  }
-
-  .markdown-editor.dark-mode {
-    flex: 1;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    overflow-y: auto;
-    height: 600px;
-    width: 100%;
-    padding: 10px;
-    background-color: #0d1117;
-    color: #fff;
+    &.dark-mode {
+      background-color: #0d1117;
+      color: #ffffff;
+    }
   }
 
   .button-download {

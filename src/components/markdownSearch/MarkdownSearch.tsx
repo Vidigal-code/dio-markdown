@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import "./MarkdownSearch.scss";
@@ -55,10 +55,22 @@ const MarkdownSearch: React.FC = () => {
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" || e.key === " ") {
       handleSearch();
     }
   };
+  
+
+  useEffect(() => {
+    if (username.length > 2) {
+      const delaySearch = setTimeout(() => {
+        handleSearch();
+      }, 900);
+  
+      return () => clearTimeout(delaySearch);
+    }
+  }, [username]);
+  
 
   return (
     <div className={`markdown-search ${darkMode ? "dark-mode" : ""}`}>

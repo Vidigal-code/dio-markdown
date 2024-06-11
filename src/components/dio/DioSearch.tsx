@@ -171,6 +171,20 @@ const DioSearch: React.FC = () => {
     }
   };
 
+  const openGitUser = () => {
+    if (filteredFiles[currentIndex]) {
+      let filePath = filteredFiles[currentIndex].path;
+      filePath = filePath.replace(/\d+/g, '');
+      filePath = filePath.replace(/\.md$/, '');
+      filePath = filePath.replace(/community\//, '');
+      const url = `https://github.com/${filePath}`;
+      window.open(url, "_blank");
+    }
+  };
+  
+  
+  
+
   return (
     <div className={`dio-search ${darkMode ? "dark-mode" : ""}`}>
       <div className={`dio-search-inner ${darkMode ? "dark-mode" : ""}`}>
@@ -233,7 +247,14 @@ const DioSearch: React.FC = () => {
             onClick={openRepositoryMD}
             disabled={!filteredFiles[currentIndex] || loading}
           >
-            Perfil
+            Perfil-repo
+          </button>
+          <button
+            className={`button-markdown-next ${darkMode ? "dark-mode" : ""}`}
+            onClick={openGitUser}
+            disabled={!filteredFiles[currentIndex] || loading}
+          >
+            Github-User
           </button>
           <button
             className={`button-markdown-next ${darkMode ? "dark-mode" : ""}`}
