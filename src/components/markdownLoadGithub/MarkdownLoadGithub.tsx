@@ -4,12 +4,12 @@ import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import "./MarkdownLoadGithub.scss";
 import { useDarkMode } from "../button/DarkModeProvider";
-import twemoji from "twemoji";
+//import twemoji from "twemoji";
 
 
-interface ImgProps {
+/*interface ImgProps {
   alt: string;
-}
+}*/
 
 const MarkdownEditor: React.FC = () => {
   const [markdownContent, setMarkdownContent] = useState<string>("");
