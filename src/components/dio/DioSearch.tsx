@@ -4,7 +4,7 @@ import rehypeRaw from "rehype-raw";
 import "react-tabs/style/react-tabs.css";
 import "./DioSearch.scss";
 import { useDarkMode } from "../button/DarkModeProvider";
-import logoFull from "../../assets/logo-full.svg"; 
+import logoFull from "../../assets/logo-full.svg";
 
 interface File {
   name: string;
@@ -64,7 +64,9 @@ const DioSearch: React.FC = () => {
     setLoading(true);
     setError(null);
 
-    fetch(`https://raw.githubusercontent.com/${username}/${repo}/main/${filePath}`)
+    fetch(
+      `https://raw.githubusercontent.com/${username}/${repo}/main/${filePath}`
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Arquivo README.md não disponível.");
@@ -103,31 +105,25 @@ const DioSearch: React.FC = () => {
     fetchMarkdown(filteredFiles[randomIndex].path);
   };
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    fetchFiles();
-  };
 
   const handleFileSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     await filterFiles();
-    setCurrentIndex(0); 
+    setCurrentIndex(0);
   };
-  
+
   const filterFiles = async () => {
     const filtered = files.filter((file) =>
       file.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredFiles(filtered);
     if (filtered.length > 0) {
-      setCurrentIndex(0); 
-      await fetchMarkdown(filtered[0].path); 
+      setCurrentIndex(0);
+      await fetchMarkdown(filtered[0].path);
     } else {
-      setMarkdownContent(""); 
+      setMarkdownContent("");
     }
   };
-  
-  
 
   const handleDownload = () => {
     if (filteredFiles[currentIndex]) {
@@ -141,7 +137,9 @@ const DioSearch: React.FC = () => {
     setLoading(true);
     setError(null);
 
-    fetch(`https://raw.githubusercontent.com/${username}/${repo}/main/${filePath}`)
+    fetch(
+      `https://raw.githubusercontent.com/${username}/${repo}/main/${filePath}`
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Erro ao baixar o arquivo.");
@@ -174,16 +172,13 @@ const DioSearch: React.FC = () => {
   const openGitUser = () => {
     if (filteredFiles[currentIndex]) {
       let filePath = filteredFiles[currentIndex].path;
-      filePath = filePath.replace(/\d+/g, '');
-      filePath = filePath.replace(/\.md$/, '');
-      filePath = filePath.replace(/community\//, '');
+      filePath = filePath.replace(/\d+/g, "");
+      filePath = filePath.replace(/\.md$/, "");
+      filePath = filePath.replace(/community\//, "");
       const url = `https://github.com/${filePath}`;
       window.open(url, "_blank");
     }
   };
-  
-  
-  
 
   return (
     <div className={`dio-search ${darkMode ? "dark-mode" : ""}`}>
@@ -191,7 +186,7 @@ const DioSearch: React.FC = () => {
         <div className="image-dio-right">
           <img src={logoFull} alt="dio-image" className="dio-image" />
         </div>
-        <form onSubmit={handleSearch}>
+        <form onSubmit={handleFileSearch}>
           <input
             type="text"
             placeholder="Digite o caminho completo do GitHub..."
@@ -216,11 +211,28 @@ const DioSearch: React.FC = () => {
           >
             Buscar
           </button>
+          <input
+            type="text"
+            placeholder="Buscar arquivo .md..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button
+            className={`button-markdown ${darkMode ? "dark-mode" : ""}`}
+            type="submit"
+          >
+            Buscar
+          </button>
         </form>
+      
+      
+      
+        <div className="navigation">
         {loading && <p className="text-loading">Carregando...</p>}
         {error && <p className="error">{error}</p>}
-        <div className="navigation">
-          <div className="text-md">Nome : {filteredFiles[currentIndex]?.name}</div>
+          <div className="text-md">
+            Nome : {filteredFiles[currentIndex]?.name}
+          </div>
           <button
             className={`button-markdown-next ${darkMode ? "dark-mode" : ""}`}
             onClick={handlePrevious}
@@ -264,20 +276,6 @@ const DioSearch: React.FC = () => {
             Download
           </button>
         </div>
-        <form onSubmit={handleFileSearch}>
-          <input
-            type="text"
-            placeholder="Buscar arquivo .md..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button
-            className={`button-markdown ${darkMode ? "dark-mode" : ""}`}
-            type="submit"
-          >
-            Buscar
-          </button>
-        </form>
         <div className="markdown-content">
           <ReactMarkdown rehypePlugins={[rehypeRaw]}>
             {markdownContent}

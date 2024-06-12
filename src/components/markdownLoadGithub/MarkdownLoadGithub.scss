@@ -1,3 +1,5 @@
+//MARKDOWN CONFIG START
+
 .markdown-load-github h1,
 .markdown-load-github h2,
 .markdown-load-github h3,
@@ -7,20 +9,8 @@
   color: #000;
   padding-bottom: 0.3em;
   font-size: 1.5em;
-  border-bottom: 0.2px solid #262b32;
+  border-bottom: 0.2px solid #D0D7DE;
   line-height: 1.25;
-}
-
-.markdown-load-github.dark-mode a {
-  color: #fff;
-}
-
-.markdown-load-github.dark-mode a:hover {
-  color: rgb(147, 255, 125);
-}
-
-.markdown-load-github a:hover {
-  color: rgb(147, 255, 125);
 }
 
 .markdown-load-github.dark-mode h1,
@@ -42,6 +32,144 @@
 
 .markdown-load-github br {
   margin-bottom: 21px;
+}
+
+.markdown-load-github.dark-mode pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: #000;
+  background-color: #ebebeb;
+  border-radius: 6px;
+}
+
+.markdown-load-github pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: #fff;
+  background-color: #D0D7DE;
+  border-radius: 6px;
+}
+
+.markdown-load-github table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+  text-align: left;
+}
+
+.markdown-load-github table th,
+.markdown-load-github table td {
+  padding: 12px 15px;
+  border: 1px solid #D0D7DE;
+}
+
+.markdown-load-github table th {
+  background-color: transparent;
+  font-weight: bold;
+}
+
+.markdown-load-github table td {
+  background-color: transparent;
+}
+
+.markdown-load-github.dark-mode table th,
+.markdown-load-github.dark-mode table td {
+  border: 1px solid #262b32;
+}
+
+.markdown-load-github.dark-mode table th {
+  background-color: transparent;
+  font-weight: bold;
+}
+
+.markdown-load-github.dark-mode table td {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.markdown-load-github table th,
+.markdown-load-github table td {
+  padding: 12px 15px;
+  border: 1px solid #262b32;
+}
+
+.markdown-load-github table th {
+  background-color: transparent;
+  font-weight: bold;
+}
+
+.markdown-load-github table td {
+  background-color: transparent;
+}
+
+.markdown-load-github.dark-mode table th,
+.markdown-load-github.dark-mode table td {
+  border: 1px solid #262b32;
+}
+
+.markdown-load-github.dark-mode table th {
+  background-color: transparent;
+  font-weight: bold;
+}
+
+.markdown-load-github.dark-mode table td {
+  background-color: transparent;
+  color: #fff;
+}
+
+.markdown-load-github.dark-mode code {
+  font-size: 12;
+  color: #fff;
+}
+
+.markdown-load-github code,
+.markdown-load-github tt {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 6px;
+}
+
+.markdown-load-github tt,
+.markdown-load-github code,
+.markdown-load-github samp {
+  font-family: var(
+    --fontStack-monospace,
+    ui-monospace,
+    SFMono-Regular,
+    SF Mono,
+    Menlo,
+    Consolas,
+    Liberation Mono,
+    monospace
+  );
+  font-size: 12px;
+}
+
+.markdown-load-github.dark-mode code,
+.markdown-load-github.dark-mode tt {
+  background-color: #D0D7DE;
+  color: #000000;
+}
+
+.markdown-load-github.dark-mode blockquote {
+  padding: 0 1em;
+  color: #d0d7de;
+  border-left: 0.25em solid #d0d7de;
+}
+
+.markdown-load-github blockquote {
+  padding: 0 1em;
+  color: #262b32;
+  border-left: 0.25em solid #262b32;
 }
 
 .markdown-load-github {
@@ -71,6 +199,8 @@
   }
 }
 
+//MARKDOWN CONFIG END
+
 @media only screen and (min-width: 768px) {
   .markdown-load-github {
     width: 1600px;
@@ -83,11 +213,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     justify-content: center;
     align-items: center;
-  }
-
-  b {
-    font-size: 12px;
-    margin: 2px;
   }
 
   .markdown-load-github {
@@ -111,7 +236,7 @@
   }
 
   .markdown-load-github img {
-    max-width: 440px;
+    max-width: 438px;
   }
 
   .markdown-load-github p {
@@ -126,18 +251,29 @@
     margin: 10px 4px;
   }
 
-  .markdown-load-github li {
-    width: 250px;
-    text-align: left;
+
+  details {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 10px;
+    word-wrap: break-word;
+    line-height: 3;
   }
 
-  .markdown-load-github details {
-    font-size: 15px;
-    margin-bottom: 2px;
+  summary{
+    font-size: 20px;
+    font-weight: 600;
   }
-
-  .markdown-load-github summary {
+  b {
+    line-height: 2;
     font-size: 18px;
+    word-break: break-word;
+  }
+  
+  
+  ul {
+    padding-left: 1em;
   }
 
   .markdown-load-github a {
@@ -194,29 +330,20 @@
     align-items: center;
   }
 
+
+
   .markdown-load-github img {
-    max-width: 670px;
+    max-width: 700px;
   }
 
   .markdown-load-github p {
     color: #000;
-    max-width: 720px;
-    margin: 8px;
-    padding: 2px;
     font-size: 20px;
   }
 
   .markdown-load-github.dark-mode p {
     color: #fff;
-    max-width: 720px;
-    margin: 8px;
-    padding: 2px;
     font-size: 20px;
-  }
-
-  b {
-    font-size: 20px;
-    padding: 4px;
   }
 
   .markdown-load-github li {
@@ -225,7 +352,7 @@
   }
 
   .markdown-load-github a {
-    color: rgb(1, 1, 1);
+    color: #000;
     text-decoration: none;
     font-style: italic;
     font-weight: 100;
@@ -243,6 +370,34 @@
     align-items: center;
     font-size: 15px;
   }
+
+
+  details {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 10px;
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+
+
+  .markdown-load-github.dark-mode b {
+    color: #fff;
+    line-height: 1.5;
+    font-size: 18px;
+  }
+  
+  .markdown-load-github b {
+    color: #000;
+    line-height: 1.5;
+    font-size: 18px;
+  }
+
+  ul {
+    padding-left: 2em;
+  }
+
 }
 
 .button-download {
@@ -395,7 +550,7 @@ input[type="text"] {
       overflow-y: auto;
       width: 100%;
       height: 700px;
-      padding: 35px;
+      padding: 24px;
       background-color: #ffffff;
       color: #000;
       font-size: 17px;
@@ -589,4 +744,16 @@ input[type="text"] {
     margin-top: 50px;
     padding: 10px;
   }
+}
+
+.markdown-load-github.dark-mode a {
+  color: #fff;
+}
+
+.markdown-load-github.dark-mode a:hover {
+  color: rgb(147, 255, 125);
+}
+
+.markdown-load-github a:hover {
+  color: rgb(147, 255, 125);
 }
