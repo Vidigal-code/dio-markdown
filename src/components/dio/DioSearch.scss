@@ -670,8 +670,15 @@
 }
 
 .dio-search.dark-mode a {
-  font-size: 20px;
+  font-size: 12px;
   font-style: italic;
+  color: #fff;
+  //text-decoration: underline;
+  //text-underline-offset: .2rem;
+}
+
+.dio-search.dark-mode p {
+  font-size: 16px;
   color: #fff;
 }
 
