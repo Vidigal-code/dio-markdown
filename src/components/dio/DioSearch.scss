@@ -288,11 +288,6 @@ $inner-box-shadow-dark: inset 0 0 2px #30363d;
 
   .button-markdown-next {
     @include button-style($button-bg-light, $text-color-dark);
-    margin-left: 5px;
-
-    &.dark-mode {
-      @include button-style($button-bg-dark, $text-color-light);
-    }
 
     @media only screen and (max-width: 768px) {
       display: flex;
@@ -305,7 +300,17 @@ $inner-box-shadow-dark: inset 0 0 2px #30363d;
       height: 30px;
       font-size: 7px;
     }
+
+    &.dark-mode {
+      @include button-style($button-bg-dark, $text-color-light);
+    }
+
+    & {
+      margin-left: 5px;
+    }
   }
+
+
 
   .input-button-wrapper {
     display: flex;
