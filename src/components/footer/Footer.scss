@@ -1,113 +1,80 @@
-.footer {
-  max-width: 1600px;
-  min-width: 1000px;
+$footer-bg-color: #000000;
+$footer-border-color: #e1e4e8;
+$footer-text-color: rgb(255, 255, 255);
+$footer-link-bg-color: #000000;
+$footer-link-bg-dark: #ffffff;
+$footer-link-text-light: #fff;
+$footer-link-text-dark: #000000;
+$footer-link-border-light: #fff;
+$footer-link-border-dark: #000;
+$footer-link-hover-color: rgb(55, 255, 0);
+$box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+$border-radius: 6px;
+$padding: 10px;
+$font-size: 16px;
+
+@mixin footer-style($bg-color, $text-color) {
+  background-color: $bg-color;
+  color: $text-color;
+  border: 1px solid $footer-border-color;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: 20px 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 20px auto;
-  padding: 20px 25px;
-  background-color: #000000;
-  border: 1px solid #e1e4e8;
-  border-radius: 6px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  color: rgb(255, 255, 255);
 }
 
-@media only screen and (max-width: 1600px) {
-  .footer {
-    max-width: 1100px;
-    min-width: 320px; 
-   }
- }
+@mixin footer-link-style($bg-color, $text-color, $border-color) {
+  padding: $padding;
+  font-size: $font-size;
+  margin-left: 6px;
+  cursor: pointer;
+  background-color: $bg-color;
+  color: $text-color;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
 
- .buttons-footers {
-  padding: 2px;
+  &:hover {
+    color: $footer-link-hover-color;
+    border-color: $footer-link-hover-color;
+  }
+
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    margin: 2px;
+    align-items: center;
+    list-style-type: none;
+    width: 40px;
+    height: 15px;
+    font-size: 7px;
+    padding: 15px;
+  }
+}
+
+.footer {
+  @include footer-style($footer-bg-color, $footer-text-color);
+
+  @media only screen and (max-width: 1600px) {
+    max-width: 1100px;
+    min-width: 320px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    max-width: 350px;
+    padding: 5px 10px;
+    font-size: 12px;
+    margin: 5px auto;
+  }
 }
 
 .footer-link {
-  padding: 10px 25px;
-  font-size: 16px;
-  margin-left: 6px;
-  cursor: pointer;
-  background-color: #000;
-  color: #fff;
-  border: 1px solid #fff;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
-  text-decoration: none;
-  &:hover {
-    color: rgb(55, 255, 0);
-    border: 1px solid rgb(55, 255, 0);
-  }
+  @include footer-link-style($footer-link-bg-color, $footer-link-text-light, $footer-link-border-light);
 
-  @media only screen and (max-width: 768px) {
-    display: flex;
-    margin: 2px;
-    align-items: center;
-    list-style-type: none;
-    width: 15px;
-    height: 15px;
-    font-size: 7px;
-    padding: 15px;
-  }
-}
-
-.footer-link-dark-mode {
-  padding: 10px 25px;
-  font-size: 16px;
-  margin-left: 6px;
-  cursor: pointer;
-  background-color: #ffffff;
-  color: #000000;
-  border: 1px solid #000;
-  border: none;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
-  text-decoration: none;
-
-  &:hover {
-    color: rgb(55, 255, 0);
-    border: 1px solid rgb(55, 255, 0);
-  }
-
-  @media only screen and (max-width: 768px) {
-    display: flex;
-    margin: 2px;
-    align-items: center;
-    list-style-type: none;
-    width: 15px;
-    height: 15px;
-    font-size: 7px;
-    padding: 15px;
-  }
-
-}
-
-@media only screen and (max-width: 768px) {
-  .footer {
-    max-width: 350px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 5px auto;
-    padding: 5px 10px;
-    background-color: #000000;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    color: rgb(255, 255, 255);
-    font-size: 12px;
-  }
-
-  .footer-link {
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .footer-link:hover {
-    color: rgb(55, 255, 0);
-    border: 1px solid rgb(55, 255, 0);
-    padding: 5px;
+  &.dark-mode {
+    @include footer-link-style($footer-link-bg-dark, $footer-link-text-dark, $footer-link-border-dark);
   }
 }

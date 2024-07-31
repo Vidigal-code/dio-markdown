@@ -1,178 +1,175 @@
-//MARKDOWN CONFIG START
-
-.markdown-load-github h1,
-.markdown-load-github h2,
-.markdown-load-github h3,
-.markdown-load-github h4,
-.markdown-load-github h5,
-.markdown-load-github h6 {
-  color: #000;
-  padding-bottom: 0.3em;
-  font-size: 1.5em;
-  border-bottom: 0.2px solid #D0D7DE;
-  line-height: 1.25;
-}
-
-.markdown-load-github.dark-mode h1,
-.markdown-load-github.dark-mode h2,
-.markdown-load-github.dark-mode h3,
-.markdown-load-github.dark-mode h4,
-.markdown-load-github.dark-mode h5,
-.markdown-load-github.dark-mode h6 {
-  color: #fff;
-  padding-bottom: 0.3em;
-  font-size: 1.5em;
-  border-bottom: 0.2px solid #262b32;
-  line-height: 1.25;
-}
-
-.markdown-load-github.dark-mode br {
-  margin-bottom: 21px;
-}
-
-.markdown-load-github br {
-  margin-bottom: 21px;
-}
-
-.markdown-load-github.dark-mode pre {
-  padding: 16px;
-  overflow: auto;
-  font-size: 85%;
-  line-height: 1.45;
-  color: #000;
-  background-color: #ebebeb;
-  border-radius: 6px;
-}
-
-.markdown-load-github pre {
-  padding: 16px;
-  overflow: auto;
-  font-size: 85%;
-  line-height: 1.45;
-  color: #fff;
-  background-color: #D0D7DE;
-  border-radius: 6px;
-}
-
-.markdown-load-github table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-  font-size: 14px;
-  text-align: left;
-}
-
-.markdown-load-github table th,
-.markdown-load-github table td {
-  padding: 12px 15px;
-  border: 1px solid #D0D7DE;
-}
-
-.markdown-load-github table th {
-  background-color: transparent;
-  font-weight: bold;
-}
-
-.markdown-load-github table td {
-  background-color: transparent;
-}
-
-.markdown-load-github.dark-mode table th,
-.markdown-load-github.dark-mode table td {
-  border: 1px solid #262b32;
-}
-
-.markdown-load-github.dark-mode table th {
-  background-color: transparent;
-  font-weight: bold;
-}
-
-.markdown-load-github.dark-mode table td {
-  background-color: transparent;
-  color: #ffffff;
-}
-
-.markdown-load-github table th,
-.markdown-load-github table td {
-  padding: 12px 15px;
-  border: 1px solid #262b32;
-}
-
-.markdown-load-github table th {
-  background-color: transparent;
-  font-weight: bold;
-}
-
-.markdown-load-github table td {
-  background-color: transparent;
-}
-
-.markdown-load-github.dark-mode table th,
-.markdown-load-github.dark-mode table td {
-  border: 1px solid #262b32;
-}
-
-.markdown-load-github.dark-mode table th {
-  background-color: transparent;
-  font-weight: bold;
-}
-
-.markdown-load-github.dark-mode table td {
-  background-color: transparent;
-  color: #fff;
-}
-
-.markdown-load-github.dark-mode code {
-  font-size: 12;
-  color: #fff;
-}
-
-.markdown-load-github code,
-.markdown-load-github tt {
-  padding: 0.2em 0.4em;
-  margin: 0;
-  font-size: 85%;
-  white-space: break-spaces;
-  background-color: #000000;
-  color: #ffffff;
-  border-radius: 6px;
-}
-
-.markdown-load-github tt,
-.markdown-load-github code,
-.markdown-load-github samp {
-  font-family: var(
-    --fontStack-monospace,
-    ui-monospace,
-    SFMono-Regular,
-    SF Mono,
-    Menlo,
-    Consolas,
-    Liberation Mono,
-    monospace
-  );
-  font-size: 12px;
-}
-
-.markdown-load-github.dark-mode code,
-.markdown-load-github.dark-mode tt {
-  background-color: #D0D7DE;
-  color: #000000;
-}
-
-.markdown-load-github.dark-mode blockquote {
-  padding: 0 1em;
-  color: #d0d7de;
-  border-left: 0.25em solid #d0d7de;
-}
-
-.markdown-load-github blockquote {
-  padding: 0 1em;
-  color: #262b32;
-  border-left: 0.25em solid #262b32;
-}
-
 .markdown-load-github {
+  text-align: left !important;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  img {
+    margin: 10px auto;
+  }
+
+  @media screen and (max-width: 760px) {
+    img {
+      max-width: 310px !important;
+      margin: 15px 2px !important;
+    }
+
+    details {
+      margin: auto;
+    }
+
+    p {
+      font-size: 10px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: #000;
+      padding-bottom: 0.3em;
+      font-size: 1.4em;
+      border-bottom: 0.2px solid #D0D7DE;
+      line-height: 1.25;
+    }
+  }
+
+  @media screen and (min-width: 760px) {
+
+    h1, h2, h3, h4, h5, h6 {
+      color: #000;
+      padding-bottom: 0.3em;
+      font-size: 1.5em;
+      border-bottom: 0.2px solid #D0D7DE;
+      line-height: 1.25;
+    }
+  }
+
+  &.dark-mode {
+    color: #fff !important;
+    border-bottom-color: #262b32 !important;
+    box-shadow: 0 0 10px rgb(255, 255, 255);
+
+    @media screen and (min-width: 760px) {
+
+      h1, h2, h3, h4, h5, h6 {
+        color: #fff !important;
+        padding-bottom: 0.3em;
+        font-size: 1.5em;
+        border-bottom: 0.2px solid #D0D7DE;
+        border-bottom-color: #262b32 !important;
+        line-height: 1.25;
+      }
+    }
+
+    @media screen and (max-width: 760px) {
+      h1, h2, h3, h4, h5, h6 {
+        color: #fff !important;
+        padding-bottom: 0.3em;
+        font-size: 1.4em;
+        border-bottom: 0.2px solid #D0D7DE;
+        border-bottom-color: #262b32 !important;
+        line-height: 1.25;
+      }
+    }
+
+    code, tt {
+      padding: 0.2em 0.4em;
+      margin: 0;
+      font-size: 85%;
+      white-space: break-spaces;
+      background-color: rgb(255, 255, 255);
+      color: rgba(0, 0, 0);
+      border-radius: 6px;
+      font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+    }
+
+    a {
+      color: rgba(0, 208, 255, 0.84);
+    }
+  }
+
+  a {
+    color: rgba(0, 51, 255, 0.84);
+    text-decoration: none;
+    font-style: italic;
+
+    &:hover {
+      color: #1bc099 !important;
+    }
+  }
+
+  br {
+    margin-bottom: 21px;
+  }
+
+  pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    border-radius: 6px;
+    background-color: #D0D7DE;
+    color: #fff;
+
+    &.dark-mode {
+      background-color: #ebebeb;
+      color: #000;
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+    text-align: left;
+
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #D0D7DE;
+      background-color: transparent;
+
+      &.dark-mode {
+        border-color: #262b32;
+        color: #fff;
+      }
+    }
+
+    th {
+      font-weight: bold;
+      background-color: transparent;
+
+      &.dark-mode {
+        background-color: transparent;
+      }
+    }
+
+    td {
+      &.dark-mode {
+        background-color: transparent;
+      }
+    }
+  }
+
+  code, tt {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    white-space: break-spaces;
+    background-color: #000;
+    color: #fff;
+    border-radius: 6px;
+    font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+  }
+
+  blockquote {
+    padding: 0 1em;
+    color: #262b32;
+    border-left: 0.25em solid #262b32;
+
+    &.dark-mode {
+      color: #D0D7DE;
+      border-left-color: #D0D7DE;
+    }
+  }
+
   details {
     margin: 60px 20px;
   }
@@ -194,12 +191,17 @@
     text-align: left;
   }
 
+  @media screen and (min-width: 760px) {
+    p {
+      font-size: 20px;
+    }
+  }
+
   summary b::before {
     font-weight: normal;
   }
 }
 
-//MARKDOWN CONFIG END
 
 @media only screen and (min-width: 768px) {
   .markdown-load-github {
@@ -270,33 +272,12 @@
     font-size: 18px;
     word-break: break-word;
   }
-  
-  
+
+
   ul {
     padding-left: 1em;
   }
 
-  .markdown-load-github a {
-    color: #000;
-    text-decoration: none;
-    font-style: italic;
-    font-weight: 100;
-    justify-content: center;
-    align-items: center;
-    font-size: 10px;
-    padding: 2px;
-  }
-
-  .markdown-load-github.dark-mode a {
-    color: #fff;
-    text-decoration: none;
-    font-style: italic;
-    font-weight: 100;
-    justify-content: center;
-    align-items: center;
-    font-size: 10px;
-    padding: 2px;
-  }
 
   .markdown-load-github p {
     align-items: center;
@@ -351,25 +332,6 @@
     text-align: left;
   }
 
-  .markdown-load-github a {
-    color: #000;
-    text-decoration: none;
-    font-style: italic;
-    font-weight: 100;
-    justify-content: center;
-    align-items: center;
-    font-size: 15px;
-  }
-
-  .markdown-load-github.dark-mode a {
-    color: #fff;
-    text-decoration: none;
-    font-style: italic;
-    font-weight: 100;
-    justify-content: center;
-    align-items: center;
-    font-size: 15px;
-  }
 
 
   details {
@@ -387,7 +349,7 @@
     line-height: 1.5;
     font-size: 18px;
   }
-  
+
   .markdown-load-github b {
     color: #000;
     line-height: 1.5;
@@ -637,19 +599,7 @@ input[type="text"] {
     font-size: 10px;
   }
 
-  .markdown-load-github a {
-    color: rgb(14, 14, 14);
-    text-decoration: none;
-    font-size: 10px;
-    margin-bottom: 2px;
-  }
 
-  .markdown-load-github.dark-mode a {
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    font-size: 10px;
-    margin-bottom: 2px;
-  }
 
   .input-button-wrapper {
     flex-direction: column;
@@ -746,14 +696,3 @@ input[type="text"] {
   }
 }
 
-.markdown-load-github.dark-mode a {
-  color: #fff;
-}
-
-.markdown-load-github.dark-mode a:hover {
-  color: rgb(147, 255, 125);
-}
-
-.markdown-load-github a:hover {
-  color: rgb(147, 255, 125);
-}
