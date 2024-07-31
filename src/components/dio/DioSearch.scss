@@ -83,6 +83,30 @@
     a {
       color: rgba(0, 208, 255, 0.84);
     }
+
+    blockquote {
+      color: #D0D7DE;
+      border-left-color: #D0D7DE;
+    }
+
+    pre {
+      background-color: #ebebeb;
+      color: #000;
+    }
+
+    th, td {
+      border-color: #262b32;
+      color: #fff;
+    }
+
+    th {
+      background-color: transparent;
+    }
+
+    td {
+      background-color: transparent;
+    }
+
   }
 
   a {
@@ -107,11 +131,6 @@
     border-radius: 6px;
     background-color: #D0D7DE;
     color: #fff;
-
-    &.dark-mode {
-      background-color: #ebebeb;
-      color: #000;
-    }
   }
 
   table {
@@ -125,11 +144,6 @@
       padding: 12px 15px;
       border: 1px solid #D0D7DE;
       background-color: transparent;
-
-      &.dark-mode {
-        border-color: #262b32;
-        color: #fff;
-      }
     }
 
     th {
@@ -163,11 +177,6 @@
     padding: 0 1em;
     color: #262b32;
     border-left: 0.25em solid #262b32;
-
-    &.dark-mode {
-      color: #D0D7DE;
-      border-left-color: #D0D7DE;
-    }
   }
 
   details {
