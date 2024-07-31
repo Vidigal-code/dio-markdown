@@ -217,12 +217,21 @@ const DioSearch: React.FC = () => {
 
     const openGitUserSearch = () => {
         if (searchTerm.trim()) {
-            const url = `https://github.com/${searchTerm}`;
-            window.open(url, "_blank");
+            let cleanedTerm = searchTerm.trim()
+                .replace(/\d+/g, "")
+                .replace(/\.md$/, "")
+                .replace(/community\//, "");
+            if (cleanedTerm) {
+                const url = `https://github.com/${encodeURIComponent(cleanedTerm)}`;
+                window.open(url, "_blank");
+            } else {
+                alert("O nome de usuário não pode ser vazio após limpeza.");
+            }
         } else {
             alert("Digite um nome de usuário válido para GitHub.");
         }
     };
+
 
     const openRepositoryMDSearch = () => {
         if (username && repo && path && searchTerm) {
