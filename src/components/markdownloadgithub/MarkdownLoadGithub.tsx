@@ -29,7 +29,7 @@ const MarkdownEditor: React.FC = () => {
           `https://raw.githubusercontent.com/${username}/${username}/master/README.md`
         );
         if (!response.ok) {
-          throw new Error("README.md não disponível.");
+          throw new Error("README.md not available.");
         }
         const text = await response.text();
         setMarkdownContent(text);
@@ -37,7 +37,7 @@ const MarkdownEditor: React.FC = () => {
         setError(null);
         saveToHistory(text);
       } catch (error) {
-        setError("Erro ao carregar README.md.");
+        console.error('Error loading README.md:', error);
       }
     };
     if (username) {
@@ -59,7 +59,7 @@ const MarkdownEditor: React.FC = () => {
         `https://raw.githubusercontent.com/${username}/${username}/master/README.md`
       );
       if (!response.ok) {
-        throw new Error("README.md não disponível.");
+        throw new Error("README.md not available.");
       }
       const text = await response.text();
       setMarkdownContent(text);
@@ -67,7 +67,7 @@ const MarkdownEditor: React.FC = () => {
       setError(null);
       saveToHistory(text);
     } catch (error) {
-      setError("Erro ao carregar README.md.");
+      console.error('Error loading README.md:', error);
     }
   };
 
@@ -105,7 +105,7 @@ const MarkdownEditor: React.FC = () => {
         "https://raw.githubusercontent.com/Vidigal-code/dio-markdown/main/src/example/example.md"
       );
       if (!response.ok) {
-        throw new Error("Base Markdown não disponível.");
+        throw new Error("Base Markdown not available.");
       }
       const text = await response.text();
       setMarkdownContent(text);
@@ -113,7 +113,7 @@ const MarkdownEditor: React.FC = () => {
       setError(null);
       saveToHistory(text);
     } catch (error) {
-      setError("Erro ao carregar base Markdown.");
+      console.error('Error loading Markdown', error);
     }
   };
 
@@ -184,7 +184,6 @@ const MarkdownEditor: React.FC = () => {
         <button className="toggle-view-btn-mobile" onClick={toggleEditorView}>
           {isEditorActive ? "Ver Markdown" : "Editar Markdown"}
         </button>
-
         {isEditorActive ? (
             <textarea
                 className={`markdown-editor-mobile ${darkMode ? "dark-mode" : ""}`}
