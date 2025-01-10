@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import MarkdownLoadGithub from "./components/markdownLoadGithub/MarkdownLoadGithub";
+import MarkdownLoadGithub from "./components/markdownloadgithub/MarkdownLoadGithub";
 import DioSearch from "./components/dio/DioSearch";
-import MarkdownSearch from "./components/markdownSearch/MarkdownSearch";
+import MarkdownSearch from "./components/markdownsearch/MarkdownSearch";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import Menu from "./components/Menu";

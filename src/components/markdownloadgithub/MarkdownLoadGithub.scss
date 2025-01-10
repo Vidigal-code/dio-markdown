@@ -3,13 +3,14 @@
   border-radius: 6px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
+
   img {
     margin: 10px auto;
   }
 
   @media screen and (max-width: 760px) {
     img {
-      max-width: 310px !important;
+      max-width: 290px !important;
       margin: 15px 2px !important;
     }
 
@@ -31,6 +32,13 @@
   }
 
   @media screen and (min-width: 760px) {
+
+    .toggle-view-btn-mobile,
+    .markdown-editor-mobile,
+    .markdown-preview-mobile {
+      display: none;
+    }
+
 
     h1, h2, h3, h4, h5, h6 {
       color: #000;
@@ -272,7 +280,7 @@
     line-height: 3;
   }
 
-  summary{
+  summary {
     font-size: 20px;
     font-weight: 600;
   }
@@ -321,7 +329,6 @@
   }
 
 
-
   .markdown-load-github img {
     max-width: 700px;
   }
@@ -340,7 +347,6 @@
     width: 650px;
     text-align: left;
   }
-
 
 
   details {
@@ -609,7 +615,6 @@ input[type="text"] {
   }
 
 
-
   .input-button-wrapper {
     flex-direction: column;
     margin-bottom: 20px;
@@ -627,10 +632,11 @@ input[type="text"] {
     margin-bottom: 30px;
   }
 
+  .editor-wrapper-dark-mode,
   .editor-wrapper {
     flex-direction: row;
     gap: 10px;
-    height: 600px;
+    height: 0;
 
     ::-webkit-scrollbar {
       width: 5px;
@@ -653,50 +659,43 @@ input[type="text"] {
     }
   }
 
-  .editor-wrapper-dark-mode {
-    flex-direction: row;
-    gap: 10px;
-    height: 600px;
-
-    ::-webkit-scrollbar {
-      width: 5px;
-      height: 5px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background-color: #0d1117;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background-color: #ffffff;
-      width: 5px;
-      height: 5px;
-      padding: 2px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background-color: #dadada;
-    }
+  .toggle-view-btn-mobile {
+    display: block;
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    background-color: #010101;
   }
 
   .markdown-editor,
   .markdown-preview {
+    display: none;
+  }
+
+  .markdown-editor-mobile,
+  .markdown-preview-mobile {
+    overflow-x: hidden;
+    margin-top: 10px;
     flex: 1;
     border: 1px solid #ccc;
     overflow-y: auto;
-    height: 600px;
-    width: 100%;
+    min-height: 500px;
+    height: auto;
+    width: 90%;
     padding: 2px 10px;
     justify-content: center;
     align-items: center;
     background-color: #ffffff;
     color: #000000;
 
+
     &.dark-mode {
       background-color: #0d1117;
       color: #ffffff;
     }
   }
+
 
   .button-download {
     margin: 0px 5px;

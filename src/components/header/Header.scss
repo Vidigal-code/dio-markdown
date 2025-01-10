@@ -31,6 +31,7 @@ $button-size: 50px;
 }
 
 @mixin button-style($bg-color, $text-color, $border-color) {
+  min-height: 50px;
   padding: $button-padding;
   cursor: pointer;
   background-color: $bg-color;

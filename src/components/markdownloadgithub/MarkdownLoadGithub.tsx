@@ -144,6 +144,12 @@ const MarkdownEditor: React.FC = () => {
     setHistoryIndex(newHistory.length - 1);
   };
 
+  const [isEditorActive, setIsEditorActive] = useState(true);
+
+  const toggleEditorView = () => {
+    setIsEditorActive(!isEditorActive);
+  };
+
   return (
     <div className={`markdown-load-github ${darkMode ? "dark-mode" : ""}`}>
       <div className="markdown-inner">
@@ -175,6 +181,24 @@ const MarkdownEditor: React.FC = () => {
             </ReactMarkdown>
           </div>
         </div>
+        <button className="toggle-view-btn-mobile" onClick={toggleEditorView}>
+          {isEditorActive ? "Ver Markdown" : "Editar Markdown"}
+        </button>
+
+        {isEditorActive ? (
+            <textarea
+                className={`markdown-editor-mobile ${darkMode ? "dark-mode" : ""}`}
+                placeholder="Escreva seu markdown aqui..."
+                value={markdownContent}
+                onChange={handleInputChange}
+            />
+        ) : (
+            <div className={`markdown-preview-mobile ${darkMode ? "dark-mode" : ""}`}>
+              <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
+                {liveMarkdown}
+              </ReactMarkdown>
+            </div>
+        )}
         <div className="button-download">
           <button className="button-markdown-bottom" onClick={undoMarkdown}>
             Desfazer

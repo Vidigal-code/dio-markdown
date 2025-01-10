@@ -9,7 +9,7 @@
 
   @media screen and (max-width: 760px) {
     img {
-      max-width: 310px !important;
+      max-width: 290px !important;
       margin: 15px 2px !important;
     }
 
@@ -239,9 +239,6 @@ $inner-box-shadow-dark: inset 0 0 2px #30363d;
   border-radius: $border-radius;
   transition: background-color 0.3s ease;
 
-  &:hover {
-    background-color: lighten($bg-color, 10%);
-  }
 
   @media only screen and (max-width: 768px) {
     font-size: 7px;
