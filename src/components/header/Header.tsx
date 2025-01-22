@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDarkMode } from '../button/DarkModeProvider'; // Verifique o caminho correto aqui
+import { useDarkMode } from '../button/DarkModeProvider'; 
 import './Header.scss';
 
 const Header: React.FC = () => {
