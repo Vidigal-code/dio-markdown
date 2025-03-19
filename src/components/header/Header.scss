@@ -1,90 +1,123 @@
-$header-bg-color: #000000;
-$header-text-color: #fff;
-$header-border-color: #e1e4e8;
-$header-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-$border-radius: 6px;
-$button-bg-color-light: #ffffff;
-$button-bg-color-dark: #000000;
-$button-text-color-light: #000000;
-$button-text-color-dark: #fff;
-$button-border-light: #ffffff;
-$button-border-dark: #000000;
-$button-hover-color: #000000;
-$button-hover-text-color: #ffffff;
-$font-size-large: 25px;
-$font-size-small: 10px;
-$button-padding: 8px 16px;
-$button-small-padding: 2px;
-$button-size: 50px;
+$colors: (
+        primary: #000000,
+        secondary: #ffffff,
+        border: #e1e4e8,
+        hover: #000000,
+        hover-text: #ffffff
+);
+
+$sizes: (
+        border-radius: 6px,
+        font-large: 25px,
+        font-small: 10px,
+        button-height: 50px
+);
+
+$spacing: (
+        button-padding: 8px 16px,
+        button-small-padding: 2px,
+        header-padding-desktop: 20px 25px,
+        header-padding-mobile: 5px 10px
+);
+
+$breakpoints: (
+        medium: 1600px,
+        small: 768px
+);
+
+$shadows: (
+        header: 0 0 10px rgba(0, 0, 0, 0.1)
+);
+
+
+@mixin responsive($breakpoint) {
+  @if $breakpoint == medium {
+    @media only screen and (max-width: map-get($breakpoints, medium)) {
+      @content;
+    }
+  } @else if $breakpoint == small {
+    @media only screen and (max-width: map-get($breakpoints, small)) {
+      @content;
+    }
+  }
+}
 
 @mixin header-style($bg-color, $text-color) {
   background-color: $bg-color;
   color: $text-color;
-  border: 1px solid $header-border-color;
-  border-radius: $border-radius;
-  box-shadow: $header-shadow;
-  padding: 20px 25px;
+  border: 1px solid map-get($colors, border);
+  border-radius: map-get($sizes, border-radius);
+  box-shadow: map-get($shadows, header);
+  padding: map-get($spacing, header-padding-desktop);
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 20px auto;
-}
 
-@mixin button-style($bg-color, $text-color, $border-color) {
-  min-height: 50px;
-  padding: $button-padding;
-  cursor: pointer;
-  background-color: $bg-color;
-  color: $text-color;
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
-  transition: background-color 0.3s ease;
-  font-size: $font-size-small;
-
-  &:hover {
-    background-color: $button-hover-color;
-    color: $button-hover-text-color;
-    border-color: $button-hover-text-color;
-  }
-
-  @media only screen and (max-width: 768px) {
-    padding: $button-small-padding;
-    width: $button-size;
-    height: $button-size;
-    font-size: $font-size-small;
-  }
-}
-
-.header {
-  @include header-style($header-bg-color, $header-text-color);
-
-  @media only screen and (max-width: 1600px) {
+  @include responsive(medium) {
     max-width: 1100px;
     min-width: 320px;
   }
 
-  @media only screen and (max-width: 768px) {
+  @include responsive(small) {
     max-width: 350px;
-    padding: 5px 10px;
+    padding: map-get($spacing, header-padding-mobile);
     font-size: 12px;
     margin: 5px auto;
   }
 }
 
+@mixin button-style($bg-color, $text-color, $border-color) {
+  min-height: map-get($sizes, button-height);
+  padding: map-get($spacing, button-padding);
+  cursor: pointer;
+  background-color: $bg-color;
+  color: $text-color;
+  border: 1px solid $border-color;
+  border-radius: map-get($sizes, border-radius);
+  transition: all 0.3s ease;
+  font-size: map-get($sizes, font-small);
+
+  &:hover {
+    background-color: map-get($colors, hover);
+    color: map-get($colors, hover-text);
+    border-color: map-get($colors, hover-text);
+  }
+
+  @include responsive(small) {
+    padding: map-get($spacing, button-small-padding);
+    width: map-get($sizes, button-height);
+    height: map-get($sizes, button-height);
+    font-size: map-get($sizes, font-small);
+  }
+}
+
+.header {
+  @include header-style(map-get($colors, primary), map-get($colors, secondary));
+}
+
 .header-text {
-  font-size: $font-size-large;
+  font-size: map-get($sizes, font-large);
   margin-right: 20px;
 
-  @media only screen and (max-width: 768px) {
-    font-size: $font-size-small;
+  @include responsive(small) {
+    font-size: map-get($sizes, font-small);
     margin-right: 5px;
   }
 }
 
 .header-button {
-  @include button-style($button-bg-color-light, $button-text-color-light, $button-border-dark);
+  @include button-style(
+                  map-get($colors, secondary),
+                  map-get($colors, primary),
+                  map-get($colors, primary)
+  );
 
   &.dark-mode {
-    @include button-style($button-bg-color-dark, $button-text-color-dark, $button-border-light);
+    @include button-style(
+                    map-get($colors, primary),
+                    map-get($colors, secondary),
+                    map-get($colors, secondary)
+    );
   }
 }
