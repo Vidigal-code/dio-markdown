@@ -13,6 +13,7 @@ interface File {
 }
 
 const DioSearch: React.FC = () => {
+   
     const [username, setUsername] = useState("digitalinnovationone");
     const [repo, setRepo] = useState("dio-lab-open-source");
     const [path, setPath] = useState("community");
@@ -217,7 +218,7 @@ const DioSearch: React.FC = () => {
 
     const openGitUserSearch = () => {
         if (searchTerm.trim()) {
-            let cleanedTerm = searchTerm.trim()
+            const cleanedTerm = searchTerm.trim()
                 .replace(/\d+/g, "")
                 .replace(/\.md$/, "")
                 .replace(/community\//, "");
