@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import "./DioSearch.scss";
-import {useDarkMode} from "../button/DarkModeProvider";
+import { useDarkMode } from "../button/DarkModeProvider";
 import logoFull from "../../assets/logo-full.svg";
 
 interface File {
@@ -12,7 +12,7 @@ interface File {
 }
 
 const DioSearch: React.FC = () => {
-   
+
     const [username, setUsername] = useState("digitalinnovationone");
     const [repo, setRepo] = useState("dio-lab-open-source");
     const [path, setPath] = useState("community");
@@ -23,10 +23,9 @@ const DioSearch: React.FC = () => {
     const [markdownContent, setMarkdownContent] = useState<string>("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const {darkMode} = useDarkMode();
+    const { darkMode } = useDarkMode();
 
-
-    const fetchFiles = () => {
+    const fetchFiles = useCallback(() => {
         setLoading(true);
         setError(null);
 
@@ -52,10 +51,9 @@ const DioSearch: React.FC = () => {
                 setError(error.message);
                 setLoading(false);
             });
-    };
+    }, [username, repo, path]);
 
-
-    const filterFiles = async () => {
+    const filterFiles = useCallback(async () => {
         const filtered = files.filter((file) =>
             file.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
@@ -66,10 +64,10 @@ const DioSearch: React.FC = () => {
         } else {
             setMarkdownContent("");
         }
-    };
+    }, [files, searchTerm]);
 
 
-    const fetchMarkdown = (filePath: string) => {
+    const fetchMarkdown = useCallback((filePath: string) => {
         setLoading(true);
         setError(null);
 
@@ -90,51 +88,34 @@ const DioSearch: React.FC = () => {
                 setError(error.message);
                 setLoading(false);
             });
-    };
+    }, [username, repo]);
 
-
-
-
-    const handlePrevious = () => {
-        if (currentIndex > 0 && filteredFiles && filteredFiles.length > 0) {
+    const handlePrevious = useCallback(() => {
+        if (currentIndex > 0 && filteredFiles.length > 0) {
             const newIndex = currentIndex - 1;
             setCurrentIndex(newIndex);
             fetchMarkdown(filteredFiles[newIndex].path);
         }
-    };
+    }, [currentIndex, filteredFiles, fetchMarkdown]);
 
-
-
-    const handleNext = () => {
-        if (currentIndex < filteredFiles.length - 1 && filteredFiles && filteredFiles.length > 0) {
+    const handleNext = useCallback(() => {
+        if (currentIndex < filteredFiles.length - 1 && filteredFiles.length > 0) {
             const newIndex = currentIndex + 1;
             setCurrentIndex(newIndex);
             fetchMarkdown(filteredFiles[newIndex].path);
         }
-    };
+    }, [currentIndex, filteredFiles, fetchMarkdown]);
 
-
-
-    const handleRandom = () => {
-        if (filteredFiles && filteredFiles.length > 0) {
+    const handleRandom = useCallback(() => {
+        if (filteredFiles.length > 0) {
             const randomIndex = Math.floor(Math.random() * filteredFiles.length);
             setCurrentIndex(randomIndex);
             fetchMarkdown(filteredFiles[randomIndex].path);
         }
-    };
+    }, [filteredFiles, fetchMarkdown]);
 
 
-
-    const handleDownload = () => {
-        if (filteredFiles[currentIndex]) {
-            const filePath = filteredFiles[currentIndex].path;
-            const fileName = filteredFiles[currentIndex].name;
-            downloadFile(filePath, fileName);
-        }
-    };
-
-
-    const downloadFile = (filePath: string, fileName: string) => {
+    const downloadFile = useCallback((filePath: string, fileName: string) => {
         setLoading(true);
         setError(null);
 
@@ -154,25 +135,33 @@ const DioSearch: React.FC = () => {
                 a.download = fileName;
                 document.body.appendChild(a);
                 a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
                 setLoading(false);
             })
             .catch((error) => {
                 setError(error.message);
                 setLoading(false);
             });
-    };
+    }, [username, repo]);
 
-    const openRepositoryMD = () => {
+    const handleDownload = useCallback(() => {
+        if (filteredFiles[currentIndex]) {
+            const filePath = filteredFiles[currentIndex].path;
+            const fileName = filteredFiles[currentIndex].name;
+            downloadFile(filePath, fileName);
+        }
+    }, [filteredFiles, currentIndex, downloadFile]);
+
+    const openRepositoryMD = useCallback(() => {
         if (filteredFiles[currentIndex]) {
             const filePath = filteredFiles[currentIndex].path;
             const url = `https://github.com/${username}/${repo}/blob/main/${filePath}`;
             window.open(url, "_blank");
         }
-    };
+    }, [filteredFiles, currentIndex, username, repo]);
 
-
-
-    const openGitUser = () => {
+    const openGitUser = useCallback(() => {
         if (filteredFiles[currentIndex]) {
             let filePath = filteredFiles[currentIndex].path;
             filePath = filePath.replace(/\d+/g, "");
@@ -181,29 +170,17 @@ const DioSearch: React.FC = () => {
             const url = `https://github.com/${filePath}`;
             window.open(url, "_blank");
         }
-    };
+    }, [filteredFiles, currentIndex]);
 
 
-    useEffect(() => {
-        fetchFiles();
-    }, [username, repo, path]);
-
-    useEffect(() => {
-        filterFiles();
-    }, [searchTerm, files]);
-
-    useEffect(() => {
-        if (searchTerm) {
-            search();
-        }
-    }, [searchTerm]);
-
-
-    const search = () => {
+    const search = useCallback(() => {
         if (!searchTerm) {
-            console.error('Search term not provided.');
+            setError("Termo de busca não fornecido.");
             return;
         }
+
+        setLoading(true);
+        setError(null);
 
         const url = `https://raw.githubusercontent.com/${username}/${repo}/main/${path}/${searchTerm}.md`;
 
@@ -212,33 +189,22 @@ const DioSearch: React.FC = () => {
                 if (!response.ok) {
                     throw new Error('Repositório ou caminho não encontrado.');
                 }
-                setLoading(true);
                 return response.text();
             })
-            .then(() => {
+            .then((text) => {
+                setMarkdownContent(text);
                 fetchMarkdown(`${path}/${searchTerm}.md`);
             })
             .catch((error) => {
-                console.error('Error fetching markdown:', error);
+                setError(`Erro ao buscar markdown: ${error.message}`);
             })
             .finally(() => {
                 setLoading(false);
             });
-    };
+    }, [username, repo, path, searchTerm, fetchMarkdown]);
 
 
-    const openGitUserSearch = () => {
-        const cleanedTerm = cleanSearchTerm(searchTerm.trim());
-
-        if (cleanedTerm) {
-            const url = `https://github.com/${encodeURIComponent(cleanedTerm)}`;
-            window.open(url, "_blank");
-        } else {
-            alert("Digite um nome de usuário válido para GitHub.");
-        }
-    };
-
-    const cleanSearchTerm = (term: string): string | null => {
+    const cleanSearchTerm = useCallback((term: string): string | null => {
         if (!term) return null;
 
         return term
@@ -246,22 +212,33 @@ const DioSearch: React.FC = () => {
             .replace(/\.md$/, "")
             .replace(/community\//, "")
             .trim();
-    };
+    }, []);
+
+    const openGitUserSearch = useCallback(() => {
+        const cleanedTerm = cleanSearchTerm(searchTerm.trim());
+
+        if (cleanedTerm) {
+            const url = `https://github.com/${encodeURIComponent(cleanedTerm)}`;
+            window.open(url, "_blank");
+        } else {
+            setError("Digite um nome de usuário válido para GitHub.");
+        }
+    }, [searchTerm, cleanSearchTerm]);
 
 
-
-    const openRepositoryMDSearch = () => {
+    const openRepositoryMDSearch = useCallback(() => {
         if (username && repo && path && searchTerm) {
             const url = `https://github.com/${username}/${repo}/blob/main/${path}/${searchTerm}.md`;
             window.open(url, "_blank");
         } else {
-            alert("Certifique-se de que todos os campos estão preenchidos corretamente.");
+            setError("Certifique-se de que todos os campos estão preenchidos corretamente.");
         }
-    };
+    }, [username, repo, path, searchTerm]);
 
-    const downloadFileSearch = (fileName: string) => {
+
+    const downloadFileSearch = useCallback((fileName: string) => {
         if (!fileName) {
-            alert("O nome do arquivo é necessário para o download.");
+            setError("O nome do arquivo é necessário para o download.");
             return;
         }
 
@@ -291,137 +268,185 @@ const DioSearch: React.FC = () => {
                 setError(`Falha ao baixar o arquivo: ${error.message}`);
                 setLoading(false);
             });
-    };
+    }, [username, repo, path, searchTerm]);
 
+    useEffect(() => {
+        fetchFiles();
+    }, [fetchFiles]);
 
+    useEffect(() => {
+        filterFiles();
+    }, [filterFiles, searchTerm, files]);
 
     const fileName = filteredFiles[currentIndex]?.name || '';
     const displayName = searchTerm.length > 0 ? `${searchTerm}` : fileName;
+    const { toggleDarkMode } = useDarkMode();
 
     return (
         <div className={`dio-search ${darkMode ? "dark-mode" : ""}`}>
             <div className={`dio-search-inner ${darkMode ? "dark-mode" : ""}`}>
-                <div className="image-dio-right">
-                    <img src={logoFull} alt="dio-image" className="dio-image"/>
+                <div className="dio-header">
+                    <div className="image-dio-right">
+                        <img src={logoFull} alt="dio-image" className="dio-image"/>
+                    </div>
+                    <h2 className="dio-title">GitHub Markdown Explorer</h2>
                 </div>
-                <input
-                    type="text"
-                    placeholder="Digite o caminho completo do GitHub..."
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                <input
-                    type="text"
-                    placeholder="Digite o nome do repositório..."
-                    value={repo}
-                    onChange={(e) => setRepo(e.target.value)}
-                />
-                <input
-                    type="text"
-                    placeholder="Digite o caminho do arquivo..."
-                    value={path}
-                    onChange={(e) => setPath(e.target.value)}
-                />
+
                 <button
-                    className={`button-markdown-next ${darkMode ? "dark-mode" : ""}`}
-                    type="submit"
-                    onClick={search}
-                >
-                    Buscar
+                    style={{marginBottom: '20px'}}
+                    className={`dio-button ${darkMode ? "dark-mode" : ""}`}
+                    onClick={toggleDarkMode}>
+                    Alternar Modo
                 </button>
-                <input
-                    type="text"
-                    placeholder="Buscar arquivo .md..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <button
-                    className={`button-markdown-next ${darkMode ? "dark-mode" : ""}`}
-                    onClick={search}
-                >
-                    Buscar
-                </button>
+
+                <div className="dio-form">
+                    <div className="form-group">
+                        <input
+                            type="text"
+                            placeholder="Digite o caminho completo do GitHub..."
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            aria-label="GitHub username"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <input
+                            type="text"
+                            placeholder="Digite o nome do repositório..."
+                            value={repo}
+                            onChange={(e) => setRepo(e.target.value)}
+                            aria-label="Repository name"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <input
+                            type="text"
+                            placeholder="Digite o caminho do arquivo..."
+                            value={path}
+                            onChange={(e) => setPath(e.target.value)}
+                            aria-label="File path"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <button
+                            className={`dio-button ${darkMode ? "dark-mode" : ""}`}
+                            type="button"
+                            onClick={fetchFiles}
+                            aria-label="Buscar repositório"
+                        >
+                            Buscar Repositório
+                        </button>
+                    </div>
+                </div>
+
+                <div className="search-container">
+                    <input
+                        type="text"
+                        placeholder="Buscar arquivo .md..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        aria-label="Search for markdown file"
+                    />
+                    <button
+                        className={`dio-button ${darkMode ? "dark-mode" : ""}`}
+                        onClick={search}
+                        aria-label="Buscar arquivo"
+                    >
+                        Buscar
+                    </button>
+                </div>
+
                 <div className="navigation">
                     {loading && <p className="text-loading">Carregando...</p>}
                     {error && <p className="error">{error}</p>}
-                    <div className="text-md">
-                        Nome: {displayName}
+
+                    <div className="file-info">
+                        <span className="file-label">Arquivo:</span>
+                        <span className="file-name">{displayName}</span>
                     </div>
 
-                    {searchTerm.length === 0 ? (
-                        <div>
-                            <button
-                                className={`button-markdown-next ${darkMode ? "dark-mode" : ""}`}
-                                onClick={handlePrevious}
-                                disabled={currentIndex === 0 || loading}
-                            >
-                                Anterior
-                            </button>
-                            <button
-                                className={`button-markdown-next ${darkMode ? "dark-mode" : ""}`}
-                                onClick={handleNext}
-                                disabled={currentIndex === filteredFiles.length - 1 || loading}
-                            >
-                                Próximo
-                            </button>
-                            <button
-                                className={`button-markdown-next ${darkMode ? "dark-mode" : ""}`}
-                                onClick={handleRandom}
-                                disabled={filteredFiles.length === 0 || loading}
-                            >
-                                Aleatório
-                            </button>
-                            <button
-                                className={`button-markdown-next ${darkMode ? "dark-mode" : ""}`}
-                                onClick={openRepositoryMD}
-                                disabled={!filteredFiles[currentIndex] || loading}
-                            >
-                                Perfil-repo
-                            </button>
-                            <button
-                                className={`button-markdown-next ${darkMode ? "dark-mode" : ""}`}
-                                onClick={openGitUser}
-                                disabled={!filteredFiles[currentIndex] || loading}
-                            >
-                                Github-User
-                            </button>
-                            <button
-                                className={`button-markdown-next ${darkMode ? "dark-mode" : ""}`}
-                                onClick={handleDownload}
-                                disabled={!filteredFiles[currentIndex] || loading}
-                            >
-                                Download
-                            </button>
-                        </div>
-                    ) : (
-                        <div>
-                            <button
-                                className={`button-markdown-next ${darkMode ? "dark-mode" : ""}`}
-                                onClick={openRepositoryMDSearch}
-                            >
-                                Perfil-repo
-                            </button>
-                            <button
-                                className={`button-markdown-next ${darkMode ? "dark-mode" : ""}`}
-                                onClick={openGitUserSearch}
-                            >
-                                Github-User
-                            </button>
-                            <button
-                                className={`button-markdown-next ${darkMode ? "dark-mode" : ""}`}
-                                onClick={() => downloadFileSearch(searchTerm)}
-                            >
-                                Download
-                            </button>
-                        </div>
-                    )}
-
+                    <div className="button-container">
+                        {searchTerm.length === 0 ? (
+                            <>
+                                <button
+                                    className={`dio-button ${darkMode ? "dark-mode" : ""}`}
+                                    onClick={handlePrevious}
+                                    disabled={currentIndex === 0 || loading}
+                                    aria-label="Arquivo anterior"
+                                >
+                                    Anterior
+                                </button>
+                                <button
+                                    className={`dio-button ${darkMode ? "dark-mode" : ""}`}
+                                    onClick={handleNext}
+                                    disabled={currentIndex === filteredFiles.length - 1 || loading}
+                                    aria-label="Próximo arquivo"
+                                >
+                                    Próximo
+                                </button>
+                                <button
+                                    className={`dio-button ${darkMode ? "dark-mode" : ""}`}
+                                    onClick={handleRandom}
+                                    disabled={filteredFiles.length === 0 || loading}
+                                    aria-label="Arquivo aleatório"
+                                >
+                                    Aleatório
+                                </button>
+                                <button
+                                    className={`dio-button ${darkMode ? "dark-mode" : ""}`}
+                                    onClick={openRepositoryMD}
+                                    disabled={!filteredFiles[currentIndex] || loading}
+                                    aria-label="Ver no repositório"
+                                >
+                                    Ver no Repo
+                                </button>
+                                <button
+                                    className={`dio-button ${darkMode ? "dark-mode" : ""}`}
+                                    onClick={openGitUser}
+                                    disabled={!filteredFiles[currentIndex] || loading}
+                                    aria-label="Ver perfil do usuário"
+                                >
+                                    Ver Perfil
+                                </button>
+                                <button
+                                    className={`dio-button ${darkMode ? "dark-mode" : ""}`}
+                                    onClick={handleDownload}
+                                    disabled={!filteredFiles[currentIndex] || loading}
+                                    aria-label="Baixar arquivo"
+                                >
+                                    Download
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <button
+                                    className={`dio-button ${darkMode ? "dark-mode" : ""}`}
+                                    onClick={openRepositoryMDSearch}
+                                    aria-label="Ver no repositório"
+                                >
+                                    Ver no Repo
+                                </button>
+                                <button
+                                    className={`dio-button ${darkMode ? "dark-mode" : ""}`}
+                                    onClick={openGitUserSearch}
+                                    aria-label="Ver perfil do usuário"
+                                >
+                                    Ver Perfil
+                                </button>
+                                <button
+                                    className={`dio-button ${darkMode ? "dark-mode" : ""}`}
+                                    onClick={() => downloadFileSearch(searchTerm)}
+                                    aria-label="Baixar arquivo"
+                                >
+                                    Download
+                                </button>
+                            </>
+                        )}
+                    </div>
                 </div>
 
                 <div className="markdown-content">
-                    <ReactMarkdown
-                        rehypePlugins={[remarkGfm, rehypeRaw]}
-                    >
+                    <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
                         {markdownContent}
                     </ReactMarkdown>
                 </div>

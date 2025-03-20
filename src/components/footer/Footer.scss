@@ -21,6 +21,7 @@ $font-size: 16px;
   box-shadow: $box-shadow;
   padding: 20px 25px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   margin: 20px auto;
@@ -35,12 +36,13 @@ $font-size: 16px;
   color: $text-color;
   border: 1px solid $border-color;
   border-radius: $border-radius;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
   text-decoration: none;
 
   &:hover {
     color: $footer-link-hover-color;
     border-color: $footer-link-hover-color;
+    transform: scale(1.05);
   }
 
   @media only screen and (max-width: 768px) {
@@ -50,7 +52,7 @@ $font-size: 16px;
     list-style-type: none;
     width: 40px;
     height: 15px;
-    font-size: 7px;
+    font-size: 12px;
     padding: 15px;
   }
 }
@@ -65,9 +67,31 @@ $font-size: 16px;
 
   @media only screen and (max-width: 768px) {
     max-width: 350px;
-    padding: 5px 10px;
-    font-size: 12px;
-    margin: 5px auto;
+    padding: 10px 15px;
+    font-size: 14px;
+    margin: 10px auto;
+  }
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .footer-left,
+  .footer-right {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+
+    @media only screen and (max-width: 768px) {
+      justify-content: center;
+      width: 100%;
+    }
   }
 }
 
