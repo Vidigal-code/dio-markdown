@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from 'rehype-raw';
-import rehypeSanitize from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
 import "./DioSearch.scss";
 import {useDarkMode} from "../button/DarkModeProvider";
@@ -421,7 +420,7 @@ const DioSearch: React.FC = () => {
 
                 <div className="markdown-content">
                     <ReactMarkdown
-                        rehypePlugins={[remarkGfm, rehypeRaw, rehypeSanitize]}
+                        rehypePlugins={[remarkGfm, rehypeRaw]}
                     >
                         {markdownContent}
                     </ReactMarkdown>

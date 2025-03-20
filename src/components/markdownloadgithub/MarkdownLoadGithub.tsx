@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from 'rehype-raw';
-import rehypeSanitize from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
 import "./MarkdownLoadGithub.scss";
 import { useDarkMode } from "../button/DarkModeProvider";
@@ -193,7 +192,7 @@ const MarkdownEditor: React.FC = () => {
           />
           <div className={`markdown-preview ${darkMode ? "dark-mode" : ""}`}>
             <ReactMarkdown
-                rehypePlugins={[remarkGfm, rehypeRaw, rehypeSanitize]}>
+                rehypePlugins={[remarkGfm, rehypeRaw]}>
               {liveMarkdown}
             </ReactMarkdown>
           </div>
@@ -210,7 +209,8 @@ const MarkdownEditor: React.FC = () => {
             />
         ) : (
             <div className={`markdown-preview-mobile ${darkMode ? "dark-mode" : ""}`}>
-              <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
+              <ReactMarkdown
+                  rehypePlugins={[remarkGfm, rehypeRaw]}>
                 {liveMarkdown}
               </ReactMarkdown>
             </div>

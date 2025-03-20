@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from 'rehype-raw';
-import rehypeSanitize from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
 import "./MarkdownSearch.scss";
 import { useDarkMode } from "../button/DarkModeProvider";
@@ -110,7 +109,7 @@ const MarkdownSearch: React.FC = () => {
         )}
         <div className="markdown-content">
           <ReactMarkdown
-              rehypePlugins={[remarkGfm, rehypeRaw, rehypeSanitize]}
+              rehypePlugins={[remarkGfm, rehypeRaw]}
           >
             {markdownContent}
           </ReactMarkdown>
