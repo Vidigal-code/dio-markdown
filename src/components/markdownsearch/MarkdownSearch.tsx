@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
+import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
+import remarkGfm from 'remark-gfm';
 import "./MarkdownSearch.scss";
 import { useDarkMode } from "../button/DarkModeProvider";
 
@@ -11,6 +12,7 @@ interface GitHubUser {
 }
 
 const MarkdownSearch: React.FC = () => {
+
   const [username, setUsername] = useState("");
   const [markdownContent, setMarkdownContent] = useState<string>("");
   const [loadingProfile, setLoadingProfile] = useState(false);
@@ -107,7 +109,9 @@ const MarkdownSearch: React.FC = () => {
           </div>
         )}
         <div className="markdown-content">
-          <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
+          <ReactMarkdown
+              rehypePlugins={[remarkGfm, rehypeRaw, rehypeSanitize]}
+          >
             {markdownContent}
           </ReactMarkdown>
         </div>

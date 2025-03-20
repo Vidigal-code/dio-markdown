@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
-import "react-tabs/style/react-tabs.css";
+import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
+import remarkGfm from 'remark-gfm';
 import "./DioSearch.scss";
 import {useDarkMode} from "../button/DarkModeProvider";
 import logoFull from "../../assets/logo-full.svg";
@@ -25,6 +25,7 @@ const DioSearch: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const {darkMode} = useDarkMode();
+
 
     const fetchFiles = () => {
         setLoading(true);
@@ -54,6 +55,7 @@ const DioSearch: React.FC = () => {
             });
     };
 
+
     const filterFiles = async () => {
         const filtered = files.filter((file) =>
             file.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -66,6 +68,7 @@ const DioSearch: React.FC = () => {
             setMarkdownContent("");
         }
     };
+
 
     const fetchMarkdown = (filePath: string) => {
         setLoading(true);
@@ -92,6 +95,7 @@ const DioSearch: React.FC = () => {
 
 
 
+
     const handlePrevious = () => {
         if (currentIndex > 0 && filteredFiles && filteredFiles.length > 0) {
             const newIndex = currentIndex - 1;
@@ -99,6 +103,7 @@ const DioSearch: React.FC = () => {
             fetchMarkdown(filteredFiles[newIndex].path);
         }
     };
+
 
 
     const handleNext = () => {
@@ -110,6 +115,7 @@ const DioSearch: React.FC = () => {
     };
 
 
+
     const handleRandom = () => {
         if (filteredFiles && filteredFiles.length > 0) {
             const randomIndex = Math.floor(Math.random() * filteredFiles.length);
@@ -119,6 +125,7 @@ const DioSearch: React.FC = () => {
     };
 
 
+
     const handleDownload = () => {
         if (filteredFiles[currentIndex]) {
             const filePath = filteredFiles[currentIndex].path;
@@ -126,6 +133,7 @@ const DioSearch: React.FC = () => {
             downloadFile(filePath, fileName);
         }
     };
+
 
     const downloadFile = (filePath: string, fileName: string) => {
         setLoading(true);
@@ -191,47 +199,56 @@ const DioSearch: React.FC = () => {
         }
     }, [searchTerm]);
 
-    const search = async () => {
+
+    const search = () => {
         if (!searchTerm) {
             console.error('Search term not provided.');
             return;
         }
 
-        try {
+        const url = `https://raw.githubusercontent.com/${username}/${repo}/main/${path}/${searchTerm}.md`;
 
-            const url = `https://raw.githubusercontent.com/${username}/${repo}/main/${path}/${searchTerm}.md`;
-            const response = await fetch(url);
-
-            if (!response.ok) {
-                throw new Error('Repositório ou caminho não encontrado.');
-            }
-
-            setLoading(true);
-            fetchMarkdown(`${path}/${searchTerm}.md`);
-
-        } catch (error) {
-            console.error('Error fetching markdown:', error);
-        } finally {
-            setLoading(false);
-        }
+        fetch(url)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Repositório ou caminho não encontrado.');
+                }
+                setLoading(true);
+                return response.text();
+            })
+            .then(() => {
+                fetchMarkdown(`${path}/${searchTerm}.md`);
+            })
+            .catch((error) => {
+                console.error('Error fetching markdown:', error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     };
 
+
     const openGitUserSearch = () => {
-        if (searchTerm.trim()) {
-            const cleanedTerm = searchTerm.trim()
-                .replace(/\d+/g, "")
-                .replace(/\.md$/, "")
-                .replace(/community\//, "");
-            if (cleanedTerm) {
-                const url = `https://github.com/${encodeURIComponent(cleanedTerm)}`;
-                window.open(url, "_blank");
-            } else {
-                alert("O nome de usuário não pode ser vazio após limpeza.");
-            }
+        const cleanedTerm = cleanSearchTerm(searchTerm.trim());
+
+        if (cleanedTerm) {
+            const url = `https://github.com/${encodeURIComponent(cleanedTerm)}`;
+            window.open(url, "_blank");
         } else {
             alert("Digite um nome de usuário válido para GitHub.");
         }
     };
+
+    const cleanSearchTerm = (term: string): string | null => {
+        if (!term) return null;
+
+        return term
+            .replace(/\d+/g, "")
+            .replace(/\.md$/, "")
+            .replace(/community\//, "")
+            .trim();
+    };
+
 
 
     const openRepositoryMDSearch = () => {
@@ -403,7 +420,9 @@ const DioSearch: React.FC = () => {
                 </div>
 
                 <div className="markdown-content">
-                    <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
+                    <ReactMarkdown
+                        rehypePlugins={[remarkGfm, rehypeRaw, rehypeSanitize]}
+                    >
                         {markdownContent}
                     </ReactMarkdown>
                 </div>

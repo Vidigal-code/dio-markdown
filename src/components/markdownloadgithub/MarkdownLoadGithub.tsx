@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
+import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
+import remarkGfm from 'remark-gfm';
 import "./MarkdownLoadGithub.scss";
 import { useDarkMode } from "../button/DarkModeProvider";
+
+
 //import twemoji from "twemoji";
 
 
@@ -23,27 +26,32 @@ const MarkdownEditor: React.FC = () => {
   const inputFileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `https://raw.githubusercontent.com/${username}/${username}/master/README.md`
-        );
-        if (!response.ok) {
-          throw new Error("README.md not available.");
-        }
-        const text = await response.text();
-        setMarkdownContent(text);
-        setLiveMarkdown(text);
-        setError(null);
-        saveToHistory(text);
-      } catch (error) {
-        console.error('Error loading README.md:', error);
+    const fetchData = () => {
+      if (username) {
+        const url = `https://raw.githubusercontent.com/${username}/${username}/master/README.md`;
+
+        fetch(url)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error('README.md not available.');
+              }
+              return response.text();
+            })
+            .then((text) => {
+              setMarkdownContent(text);
+              setLiveMarkdown(text);
+              setError(null);
+              saveToHistory(text);
+            })
+            .catch((error) => {
+              console.error('Error loading README.md:', error);
+            });
       }
     };
-    if (username) {
-      fetchData();
-    }
+
+    fetchData();
   }, [username]);
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
@@ -52,24 +60,30 @@ const MarkdownEditor: React.FC = () => {
     saveToHistory(inputValue);
   };
 
-  const loadMarkdown = async () => {
+  const loadMarkdown = () => {
     setError(null);
-    try {
-      const response = await fetch(
-        `https://raw.githubusercontent.com/${username}/${username}/master/README.md`
-      );
-      if (!response.ok) {
-        throw new Error("README.md not available.");
-      }
-      const text = await response.text();
-      setMarkdownContent(text);
-      setLiveMarkdown(text);
-      setError(null);
-      saveToHistory(text);
-    } catch (error) {
-      console.error('Error loading README.md:', error);
-    }
+
+    const url = `https://raw.githubusercontent.com/${username}/${username}/master/README.md`;
+
+    fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            return Promise.reject(new Error("README.md not available."));
+          }
+          return response.text();
+        })
+        .then((text) => {
+          setMarkdownContent(text);
+          setLiveMarkdown(text);
+          setError(null);
+          saveToHistory(text);
+        })
+        .catch((error) => {
+          console.error('Error loading README.md:', error);
+          setError(error.message);
+        });
   };
+
 
   const downloadMarkdown = () => {
     const blob = new Blob([markdownContent], { type: "text/markdown" });
@@ -99,23 +113,28 @@ const MarkdownEditor: React.FC = () => {
     }
   };
 
-  const useBaseMarkdown = async () => {
-    try {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/Vidigal-code/dio-markdown/main/src/example/example.md"
-      );
-      if (!response.ok) {
-        throw new Error("Base Markdown not available.");
-      }
-      const text = await response.text();
-      setMarkdownContent(text);
-      setLiveMarkdown(text);
-      setError(null);
-      saveToHistory(text);
-    } catch (error) {
-      console.error('Error loading Markdown', error);
-    }
+  const useBaseMarkdown = () => {
+    const url = "https://raw.githubusercontent.com/Vidigal-code/dio-markdown/main/src/example/example.md";
+
+    fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            return Promise.reject(new Error("Base Markdown not available."));
+          }
+          return response.text();
+        })
+        .then((text) => {
+          setMarkdownContent(text);
+          setLiveMarkdown(text);
+          setError(null);
+          saveToHistory(text);
+        })
+        .catch((error) => {
+          console.error('Error loading Markdown', error);
+          setError(error.message);
+        });
   };
+
 
   const undoMarkdown = () => {
     if (historyIndex > 0) {
@@ -174,9 +193,7 @@ const MarkdownEditor: React.FC = () => {
           />
           <div className={`markdown-preview ${darkMode ? "dark-mode" : ""}`}>
             <ReactMarkdown
-              rehypePlugins={[rehypeRaw]}
-              remarkPlugins={[remarkGfm]}
-            >
+                rehypePlugins={[remarkGfm, rehypeRaw, rehypeSanitize]}>
               {liveMarkdown}
             </ReactMarkdown>
           </div>
