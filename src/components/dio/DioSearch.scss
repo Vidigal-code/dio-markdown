@@ -329,6 +329,7 @@ $transition-speed: 0.3s;
     }
 
     pre {
+      max-width: 600px;
       padding: 16px;
       overflow: auto;
       font-size: 85%;
@@ -510,6 +511,62 @@ $transition-speed: 0.3s;
       padding: 8px 12px;
     }
 
+    .markdown-content {
+      padding: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+
+      h1 {
+        font-size: 1.6em;
+        margin-top: 24px;
+        margin-bottom: 12px;
+      }
+
+      h2 {
+        font-size: 1.4em;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+
+      h3 {
+        font-size: 1.2em;
+      }
+
+      pre {
+        max-width: 270px;
+        padding: 12px;
+        font-size: 13px;
+        margin-left: -12px;
+        margin-right: -12px;
+        border-radius: 0;
+      }
+
+      code {
+        font-size: 13px;
+      }
+
+      table {
+        max-width: 270px;
+        display: block;
+        overflow-x: auto;
+
+        th, td {
+          padding: 4px 8px;
+          font-size: 13px;
+        }
+      }
+
+      ul, ol {
+        padding-left: 24px;
+      }
+
+      blockquote {
+        margin-left: -12px;
+        margin-right: -12px;
+        padding-left: 12px;
+      }
+
+    }
 
     .navigation {
       .button-container {
