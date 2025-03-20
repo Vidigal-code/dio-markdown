@@ -296,7 +296,7 @@ const DioSearch: React.FC = () => {
                     style={{marginBottom: '20px'}}
                     className={`dio-button ${darkMode ? "dark-mode" : ""}`}
                     onClick={toggleDarkMode}>
-                    Alternar Modo
+                    {darkMode ? '☀️ Light' : '🌙 Dark'}
                 </button>
 
                 <div className="dio-form">
