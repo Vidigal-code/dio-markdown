@@ -446,7 +446,9 @@ const DioSearch: React.FC = () => {
                 </div>
 
                 <div className="markdown-content">
-                    <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
+                    <ReactMarkdown
+                        rehypePlugins={[remarkGfm, rehypeRaw]}
+                    >
                         {markdownContent}
                     </ReactMarkdown>
                 </div>
