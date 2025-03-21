@@ -1,18 +1,45 @@
-import { useDarkMode } from '../button/DarkModeProvider';
 import './Footer.scss';
+import React from "react";
 
-const Footer: React.FC = () => {
-  const { darkMode, toggleDarkMode } = useDarkMode();
-  
-  return (
-    <footer className={`footer ${darkMode ? 'dark-mode' : ''}`}>
-        <p style={{marginRight: '10px'}}>&copy; CREATED BY KAUAN VIDIGAL</p>
-        <div className="buttons-footers">
-            <a href="https://github.com/Vidigal-code" className={`footer-link${darkMode ? " dark-mode" : ""}`} onClick={toggleDarkMode} target="_blank">Vidigal-code</a>
-     <a href="https://github.com/Vidigal-code/dio-markdown/" className={`footer-link${darkMode ? " dark-mode" : ""}`} onClick={toggleDarkMode} target="_blank">Link-Project</a>
-     </div>
-    </footer>
-  );
-};
+interface FooterProps {
+    darkMode: boolean;
+}
+
+const Footer: React.FC<FooterProps> = ({ darkMode }) => {
+    const currentYear = new Date().getFullYear();
+
+    return (
+        <footer className={`footer-container ${darkMode ? 'dark-mode' : ''}`}>
+            <div className="footer-left">
+                <span className="footer-text">
+                    © {currentYear} Editor Markdown
+                    <span className="footer-author">
+                        By
+                        <a
+                            className={`footer-link ${darkMode ? 'dark-mode' : ''}`}
+                            href="https://github.com/Vidigal-code"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Vidigal-code
+                        </a>
+                    </span>
+                </span>
+            </div>
+            <div className="footer-right">
+                <span className="footer-text">
+                    <a
+                        className={`footer-link ${darkMode ? 'dark-mode' : ''}`}
+                        href="https://github.com/Vidigal-code/dio-markdown"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Documentation
+                    </a>
+                </span>
+            </div>
+        </footer>
+    );
+}
 
 export default Footer;

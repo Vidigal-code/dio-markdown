@@ -1,55 +1,64 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
-import "./MarkdownLoadGithub.scss";
 import { useDarkMode } from "../button/DarkModeProvider";
+import "./MarkdownLoadGithub.scss";
 
+interface MarkdownEditorProps {
+  initialContent?: string;
+}
 
-//import twemoji from "twemoji";
+const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ initialContent = "" }) => {
 
-
-/*interface ImgProps {
-  alt: string;
-}*/
-
-const MarkdownEditor: React.FC = () => {
-  const [markdownContent, setMarkdownContent] = useState<string>("");
+  const [markdownContent, setMarkdownContent] = useState<string>(initialContent);
   const [username, setUsername] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  const { darkMode } = useDarkMode();
   const [fileName, setFileName] = useState<string>("README.md");
-  const [liveMarkdown, setLiveMarkdown] = useState<string>("");
-  const [history, setHistory] = useState<string[]>([]);
-  const [historyIndex, setHistoryIndex] = useState<number>(-1);
+  const [liveMarkdown, setLiveMarkdown] = useState<string>(initialContent);
+  const [history, setHistory] = useState<string[]>([initialContent]);
+  const [historyIndex, setHistoryIndex] = useState<number>(0);
+  const [isEditorActive, setIsEditorActive] = useState(true);
+  const { darkMode } = useDarkMode();
   const inputFileRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    const fetchData = () => {
-      if (username) {
-        const url = `https://raw.githubusercontent.com/${username}/${username}/master/README.md`;
+  const saveToHistory = (content: string) => {
 
-        fetch(url)
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error('README.md not available.');
-              }
-              return response.text();
-            })
-            .then((text) => {
-              setMarkdownContent(text);
-              setLiveMarkdown(text);
-              setError(null);
-              saveToHistory(text);
-            })
-            .catch((error) => {
-              console.error('Error loading README.md:', error);
-            });
-      }
-    };
+    if (content === history[historyIndex]) return;
 
-    fetchData();
-  }, [username]);
+    const newHistory = [...history.slice(0, historyIndex + 1), content];
+    const trimmedHistory = newHistory.length > 50 ? newHistory.slice(-50) : newHistory;
+
+    setHistory(trimmedHistory);
+    setHistoryIndex(trimmedHistory.length - 1);
+  };
+
+  const fetchGithubReadme = () => {
+    if (!username.trim()) {
+      setError("Please enter a GitHub username");
+      return;
+    }
+
+    setError(null);
+    const url = `https://raw.githubusercontent.com/${username}/${username}/master/README.md`;
+
+    fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            return Promise.reject(new Error('README.md not available for this user.'));
+          }
+          return response.text();
+        })
+        .then((text) => {
+          setMarkdownContent(text);
+          setLiveMarkdown(text);
+          saveToHistory(text);
+        })
+        .catch((error) => {
+          console.error('Error loading README.md:', error);
+          setError(error instanceof Error ? error.message : 'Failed to load README');
+        });
+  };
 
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -59,27 +68,25 @@ const MarkdownEditor: React.FC = () => {
     saveToHistory(inputValue);
   };
 
-  const loadMarkdown = () => {
-    setError(null);
-
-    const url = `https://raw.githubusercontent.com/${username}/${username}/master/README.md`;
+  const fetchBaseMarkdown = () => {
+    const url = "https://raw.githubusercontent.com/Vidigal-code/dio-markdown/main/src/example/example.md";
 
     fetch(url)
         .then((response) => {
           if (!response.ok) {
-            return Promise.reject(new Error("README.md not available."));
+            return Promise.reject(new Error("Base Markdown template not available."));
           }
           return response.text();
         })
         .then((text) => {
           setMarkdownContent(text);
           setLiveMarkdown(text);
-          setError(null);
           saveToHistory(text);
+          setError(null);
         })
         .catch((error) => {
-          console.error('Error loading README.md:', error);
-          setError(error.message);
+          console.error('Error loading base Markdown:', error);
+          setError(error instanceof Error ? error.message : 'Failed to load template');
         });
   };
 
@@ -101,7 +108,7 @@ const MarkdownEditor: React.FC = () => {
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
-        if (event.target) {
+        if (event.target?.result) {
           const content = event.target.result as string;
           setMarkdownContent(content);
           setLiveMarkdown(content);
@@ -112,28 +119,11 @@ const MarkdownEditor: React.FC = () => {
     }
   };
 
-  const useBaseMarkdown = () => {
-    const url = "https://raw.githubusercontent.com/Vidigal-code/dio-markdown/main/src/example/example.md";
-
-    fetch(url)
-        .then((response) => {
-          if (!response.ok) {
-            return Promise.reject(new Error("Base Markdown not available."));
-          }
-          return response.text();
-        })
-        .then((text) => {
-          setMarkdownContent(text);
-          setLiveMarkdown(text);
-          setError(null);
-          saveToHistory(text);
-        })
-        .catch((error) => {
-          console.error('Error loading Markdown', error);
-          setError(error.message);
-        });
+  const clearContent = () => {
+    setMarkdownContent("");
+    setLiveMarkdown("");
+    saveToHistory("");
   };
-
 
   const undoMarkdown = () => {
     if (historyIndex > 0) {
@@ -153,114 +143,124 @@ const MarkdownEditor: React.FC = () => {
     }
   };
 
-  const saveToHistory = (content: string) => {
-    let newHistory = [...history.slice(0, historyIndex + 1), content];
-    if (newHistory.length > 10) {
-      newHistory = newHistory.slice(newHistory.length - 250);
-    }
-    setHistory(newHistory);
-    setHistoryIndex(newHistory.length - 1);
-  };
-
-  const [isEditorActive, setIsEditorActive] = useState(true);
-
   const toggleEditorView = () => {
     setIsEditorActive(!isEditorActive);
   };
 
+  const canUndo = historyIndex > 0;
+  const canRedo = historyIndex < history.length - 1;
+
   return (
-    <div className={`markdown-load-github ${darkMode ? "dark-mode" : ""}`}>
-      <div className="markdown-inner">
-        <div className="input-button-wrapper">
-          <input
-            type="text"
-            placeholder="Digite o nome de usuário do GitHub..."
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <button className="button-markdown" onClick={loadMarkdown}>
-            Carregar .md
-          </button>
-        </div>
-        {error && <p className="error">{error}</p>}
-        <div className={`editor-wrapper${darkMode ? "-dark-mode" : ""}`}>
-          <textarea
-            className={`markdown-editor ${darkMode ? "dark-mode" : ""}`}
-            placeholder="Escreva seu markdown aqui..."
-            value={markdownContent}
-            onChange={handleInputChange}
-          />
-          <div className={`markdown-preview ${darkMode ? "dark-mode" : ""}`}>
-            <ReactMarkdown
-                rehypePlugins={[remarkGfm, rehypeRaw]}>
-              {liveMarkdown}
-            </ReactMarkdown>
+      <div className={`markdown-editor-container ${darkMode ? "dark-mode" : "light-mode"}`}>
+        <div className="markdown-inner">
+          <div className="header-actions">
+            <div className="input-group">
+              <input
+                  type="text"
+                  placeholder="GitHub username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  aria-label="GitHub username"
+              />
+              <button className="primary-button" onClick={fetchGithubReadme}>
+                Load README
+              </button>
+            </div>
           </div>
-        </div>
-        <button className="toggle-view-btn-mobile" onClick={toggleEditorView}>
-          {isEditorActive ? "Ver Markdown" : "Editar Markdown"}
-        </button>
-        {isEditorActive ? (
-            <textarea
-                className={`markdown-editor-mobile ${darkMode ? "dark-mode" : ""}`}
-                placeholder="Escreva seu markdown aqui..."
-                value={markdownContent}
-                onChange={handleInputChange}
-            />
-        ) : (
-            <div className={`markdown-preview-mobile ${darkMode ? "dark-mode" : ""}`}>
-              <ReactMarkdown
-                  rehypePlugins={[remarkGfm, rehypeRaw]}>
+
+          {error && <div className="error-message">{error}</div>}
+
+          <div className="editor-preview-container">
+          <textarea
+              className="markdown-editor"
+              placeholder="Write your markdown here..."
+              value={markdownContent}
+              onChange={handleInputChange}
+              aria-label="Markdown editor"
+          />
+            <div className="markdown-preview">
+              <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
                 {liveMarkdown}
               </ReactMarkdown>
             </div>
-        )}
-        <div className="button-download">
-          <button className="button-markdown-bottom" onClick={undoMarkdown}>
-            Desfazer
-          </button>
-          <button className="button-markdown-bottom" onClick={redoMarkdown}>
-            Refazer
-          </button>
-          <button
-            className="button-markdown-bottom"
-            onClick={() => inputFileRef.current?.click()}
-          >
-            Enviar MD
-          </button>
-          <button className="button-markdown-bottom" onClick={useBaseMarkdown}>
-            Usar MD Base
-          </button>
-          <button
-            className="button-markdown-bottom-del"
-            onClick={() => {
-              setMarkdownContent("");
-              setLiveMarkdown("");
-              saveToHistory("");
-            }}
-          >
-            Apagar
-          </button>
-          <div className="input-button-wrapper">
-            <input
-              type="text"
-              placeholder="Nome do arquivo..."
-              value={fileName}
-              onChange={(e) => setFileName(e.target.value)}
-            />
-            <button className="button-markdown" onClick={downloadMarkdown}>
-              Download
-            </button>
           </div>
-          <input
-            type="file"
-            style={{ display: "none" }}
-            ref={inputFileRef}
-            onChange={handleFileUpload}
-          />
+
+          <div className="mobile-view">
+            <button className="toggle-view-btn" onClick={toggleEditorView}>
+              {isEditorActive ? "Preview Markdown" : "Edit Markdown"}
+            </button>
+
+            {isEditorActive ? (
+                <textarea
+                    className="markdown-editor-mobile"
+                    placeholder="Write your markdown here..."
+                    value={markdownContent}
+                    onChange={handleInputChange}
+                    aria-label="Markdown editor mobile"
+                />
+            ) : (
+                <div className="markdown-preview-mobile">
+                  <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
+                    {liveMarkdown}
+                  </ReactMarkdown>
+                </div>
+            )}
+          </div>
+
+          <div className="action-toolbar">
+            <button
+                className={`action-button ${canUndo ? "" : "disabled"}`}
+                onClick={undoMarkdown}
+                disabled={!canUndo}
+            >
+              Undo
+            </button>
+            <button
+                className={`action-button ${canRedo ? "" : "disabled"}`}
+                onClick={redoMarkdown}
+                disabled={!canRedo}
+            >
+              Redo
+            </button>
+            <button
+                className="action-button"
+                onClick={() => inputFileRef.current?.click()}
+            >
+              Upload MD
+            </button>
+            <button className="action-button" onClick={fetchBaseMarkdown}>
+              Use Template
+            </button>
+            <button
+                className="action-button danger"
+                onClick={clearContent}
+            >
+              Clear
+            </button>
+
+            <div className="file-download-group">
+              <input
+                  type="text"
+                  placeholder="Filename"
+                  value={fileName}
+                  onChange={(e) => setFileName(e.target.value)}
+                  aria-label="Filename for download"
+              />
+              <button className="primary-button" onClick={downloadMarkdown}>
+                Download
+              </button>
+            </div>
+
+            <input
+                type="file"
+                accept=".md,.markdown,.txt"
+                style={{ display: "none" }}
+                ref={inputFileRef}
+                onChange={handleFileUpload}
+            />
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 

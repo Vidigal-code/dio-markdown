@@ -280,7 +280,6 @@ const DioSearch: React.FC = () => {
 
     const fileName = filteredFiles[currentIndex]?.name || '';
     const displayName = searchTerm.length > 0 ? `${searchTerm}` : fileName;
-    const { toggleDarkMode } = useDarkMode();
 
     return (
         <div className={`dio-search ${darkMode ? "dark-mode" : ""}`}>
@@ -291,13 +290,6 @@ const DioSearch: React.FC = () => {
                     </div>
                     <h2 className="dio-title">GitHub Markdown Explorer</h2>
                 </div>
-
-                <button
-                    style={{marginBottom: '20px'}}
-                    className={`dio-button ${darkMode ? "dark-mode" : ""}`}
-                    onClick={toggleDarkMode}>
-                    {darkMode ? '☀️ Light' : '🌙 Dark'}
-                </button>
 
                 <div className="dio-form">
                     <div className="form-group">

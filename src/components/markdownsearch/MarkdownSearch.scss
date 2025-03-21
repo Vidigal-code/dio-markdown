@@ -1,36 +1,62 @@
 
-$light-bg-color: #fff;
+$light-bg-color: #ffffff;
 $dark-bg-color: #0d1117;
-$border-color-light: #D0D7DE;
+$border-color-light: #d0d7de;
 $border-color-dark: #30363d;
-$text-color-light: #000;
-$text-color-dark: #fff;
-$button-bg-light: #010101;
-$button-bg-dark: #ffffff;
-$error-color: red;
-$loading-color: rgb(121, 239, 18);
+$text-color-light: #24292f;
+$text-color-dark: #c9d1d9;
+$button-bg-light: #2da44e;
+$button-bg-hover-light: #2c974b;
+$button-bg-dark: #238636;
+$button-bg-hover-dark: #26a641;
+$button-text-color: #ffffff;
+$link-color-light: #0969da;
+$link-color-dark: #58a6ff;
+$code-bg-light: #f6f8fa;
+$code-bg-dark: #161b22;
 $border-radius: 6px;
-$box-shadow-light: 0 0 10px rgba(0, 0, 0, 0.1);
-$box-shadow-dark: 0 0 10px rgba(255, 255, 255, 0.1);
-$inner-box-shadow-light: inset 0 0 2px #0d1117;
-$inner-box-shadow-dark: inset 0 0 2px #30363d;
+$box-shadow-light: 0 1px 0 rgba(27, 31, 36, 0.04), 0 1px 3px rgba(27, 31, 36, 0.12);
+$box-shadow-dark: 0 1px 0 rgba(1, 4, 9, 0.1), 0 1px 3px rgba(1, 4, 9, 0.1);
+$error-color-light: #cf222e;
+$error-color-dark: #f85149;
+$loading-color-light: #0969da;
+$loading-color-dark: #58a6ff;
+$font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+$monospace-font: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
 
+$container-xl: 1280px;
+$container-lg: 1012px;
+$container-md: 768px;
+$container-sm: 544px;
 
-@mixin button-style($bg-color, $text-color) {
-  padding: 10px;
-  font-size: 16px;
+@mixin button-style($bg-color, $text-color, $hover-bg-color) {
+  padding: 5px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
   cursor: pointer;
   background-color: $bg-color;
   color: $text-color;
-  border: none;
+  border: 1px solid rgba(27, 31, 36, 0.15);
   border-radius: $border-radius;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: $hover-bg-color;
+  }
 }
 
-@mixin heading-styles($color) {
+@mixin heading-styles($color, $border-color) {
   color: $color;
-  padding-bottom: 0.3em;
-  border-bottom: 0.2px solid $border-color-light;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
   line-height: 1.25;
+
+  &:not(:first-child) {
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid $border-color;
+  }
 }
 
 @mixin flex-center {
@@ -39,143 +65,371 @@ $inner-box-shadow-dark: inset 0 0 2px #30363d;
   align-items: center;
 }
 
-@mixin status-message {
+@mixin status-message($color) {
   @include flex-center;
   width: 100%;
-  font-size: 20px;
+  font-size: 14px;
+  color: $color;
+  padding: 8px;
+  margin: 16px 0;
+  border-radius: $border-radius;
 }
 
+.markdown-search-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 16px;
+  box-sizing: border-box;
+}
 
 .markdown-search {
-  max-width: 1000px;
+  width: 100%;
+  max-width: $container-lg;
+  margin: 0 auto;
   background-color: $light-bg-color;
   border: 1px solid $border-color-light;
   border-radius: $border-radius;
   box-shadow: $box-shadow-light;
-  height: 100%;
-  padding: 20px;
+  padding: 16px;
+  font-family: $font-stack;
+  color: $text-color-light;
+  line-height: 1.5;
+  font-size: 16px;
   text-align: left !important;
 
+  * {
+    box-sizing: border-box;
+  }
 
   &.dark-mode {
     background-color: $dark-bg-color;
     color: $text-color-dark;
     box-shadow: $box-shadow-dark;
     border: 1px solid $border-color-dark;
-    border-bottom-color: #262b32 !important;
   }
-
 
   .markdown-search-inner {
     border-radius: $border-radius;
-    padding: 20px;
-    box-shadow: $inner-box-shadow-light;
+    padding: 16px;
     flex-grow: 1;
+    width: 100%;
+  }
 
-    &.dark-mode {
-      box-shadow: $inner-box-shadow-dark;
+  .input-button-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+
+    @media (max-width: $container-md) {
+      flex-direction: column;
+      align-items: stretch;
     }
   }
 
-
-  .input-button-wrapper {
-    @include flex-center;
-    margin: -15px;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-
-
   input {
-    padding: 10px;
-    margin: 30px 10px;
-    font-size: 16px;
-    border: 1px solid #303030;
+    padding: 5px 12px;
+    font-size: 14px;
+    line-height: 20px;
+    border: 1px solid $border-color-light;
     border-radius: $border-radius;
     width: 100%;
-    box-sizing: border-box;
+    flex-grow: 1;
+    background-color: $light-bg-color;
+    color: $text-color-light;
+
+    &:focus {
+      outline: none;
+      border-color: $link-color-light;
+      box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.3);
+    }
+
+    .dark-mode & {
+      background-color: $code-bg-dark;
+      border-color: $border-color-dark;
+      color: $text-color-dark;
+
+      &:focus {
+        border-color: $link-color-dark;
+        box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.3);
+      }
+    }
   }
 
-
   .button-markdown {
-    @include button-style($button-bg-light, $text-color-dark);
+    @include button-style($button-bg-light, $button-text-color, $button-bg-hover-light);
+    width: 100%;
 
-    &.dark-mode {
-      @include button-style($button-bg-dark, $text-color-light);
+    .dark-mode & {
+      @include button-style($button-bg-dark, $button-text-color, $button-bg-hover-dark);
     }
   }
 
   .markdown-content-wrapper {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    margin-top: 20px;
+    flex-direction: column;
+    margin-top: 16px;
+    width: 100%;
   }
 
   .markdown-content {
     flex-grow: 1;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    width: 100%;
+    padding: 16px;
+
+    blockquote {
+      padding: 0 1em;
+      color: #6a737d;
+      border-left: 0.25em solid #dfe2e5;
+      margin: 16px 0;
+
+      .dark-mode & {
+        color: #8b949e;
+        border-left-color: #30363d;
+      }
+    }
+
+    pre {
+      max-width: 600px;
+      padding: 16px;
+      overflow: auto;
+      font-size: 85%;
+      line-height: 1.45;
+      border-radius: 6px;
+      background-color: #f6f8fa;
+      margin-bottom: 16px;
+
+      .dark-mode & {
+        background-color: #161b22;
+      }
+    }
+
+    code {
+      padding: 0.2em 0.4em;
+      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+      background-color: rgba(27,31,35,0.05);
+      border-radius: 6px;
+      font-size: 85%;
+
+      .dark-mode & {
+        background-color: rgba(110,118,129,0.4);
+      }
+    }
+
+    pre code {
+      padding: 0;
+      background-color: transparent;
+      border-radius: 0;
+      font-size: 100%;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      display: block;
+      overflow-x: auto;
+
+      th {
+        font-weight: 600;
+        background-color: #f6f8fa;
+      }
+
+      th, td {
+        padding: 6px 13px;
+        border: 1px solid #dfe2e5;
+      }
+
+      tr {
+        background-color: #ffffff;
+        border-top: 1px solid #c6cbd1;
+
+        &:nth-child(2n) {
+          background-color: #f6f8fa;
+        }
+      }
+
+      .dark-mode & {
+        th, td {
+          border-color: #30363d;
+        }
+
+        th {
+          background-color: #161b22;
+        }
+
+        tr {
+          background-color: #0d1117;
+
+          &:nth-child(2n) {
+            background-color: #161b22;
+          }
+        }
+      }
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      margin: 24px 0;
+      border-radius: 6px;
+    }
+
+    hr {
+      height: 0.25em;
+      padding: 0;
+      margin: 24px 0;
+      background-color: #e1e4e8;
+      border: 0;
+
+      .dark-mode & {
+        background-color: #30363d;
+      }
+    }
+
+    details {
+      margin: 16px 0;
+      padding: 16px;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+
+      summary {
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      .dark-mode & {
+        border-color: #30363d;
+      }
+    }
+
+    kbd {
+      display: inline-block;
+      padding: 3px 5px;
+      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 11px;
+      color: #444d56;
+      vertical-align: middle;
+      background-color: #fafbfc;
+      border: 1px solid #d1d5da;
+      border-radius: 6px;
+      box-shadow: inset 0 -1px 0 #d1d5da;
+
+      .dark-mode & {
+        color: #c9d1d9;
+        background-color: #161b22;
+        border-color: #30363d;
+        box-shadow: inset 0 -1px 0 #30363d;
+      }
+    }
   }
 
   .error {
-    @include status-message;
-    color: $error-color;
-    margin-bottom: 25px;
+    @include status-message($error-color-light);
+    background-color: rgba(207, 34, 46, 0.1);
+
+    .dark-mode & {
+      color: $error-color-dark;
+      background-color: rgba(248, 81, 73, 0.1);
+    }
   }
 
   .text-loading {
-    @include status-message;
-    color: $loading-color;
-    margin-top: 10px;
+    @include status-message($loading-color-light);
+
+    .dark-mode & {
+      color: $loading-color-dark;
+    }
   }
 
   .github-profile {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 24px;
+    width: 100%;
 
     .profile-info {
       text-align: center;
+      width: 100%;
 
       .profile-name {
         font-size: 24px;
-        font-weight: bold;
-        margin-top: 15px;
+        font-weight: 600;
+        margin-top: 8px;
+        margin-bottom: 2px;
       }
     }
   }
 
-  img {
-    margin: 10px auto;
-  }
+  .profile-avatar {
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
 
-  a {
-    color: rgba(0, 51, 255, 0.84);
-    text-decoration: none;
-    font-style: italic;
+    @media (max-width: $container-md) {
+      width: 150px;
+      height: 150px;
+    }
 
-    &:hover {
-      color: #1bc099 !important;
+    @media (max-width: $container-sm) {
+      width: 100px;
+      height: 100px;
     }
   }
 
-  br {
-    margin-bottom: 21px;
+  img {
+    max-width: 100%;
+    height: auto;
+    margin: 16px 0;
+    border-style: none;
+    box-sizing: content-box;
+  }
+
+  a {
+    color: $link-color-light;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      color: $link-color-light !important;
+    }
+
+    .dark-mode & {
+      color: $link-color-dark;
+
+      &:hover {
+        color: $link-color-dark !important;
+      }
+    }
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 16px;
   }
 
   strong {
-    margin: 2px;
+    font-weight: 600;
   }
 
-  ul {
-    max-width: 200px;
+  ul, ol {
+    padding-left: 2em;
+    margin-top: 0;
+    margin-bottom: 16px;
   }
 
   li {
-    width: 500px;
-    text-align: left;
+    margin: 0.25em 0;
   }
 
   pre {
@@ -183,183 +437,182 @@ $inner-box-shadow-dark: inset 0 0 2px #30363d;
     overflow: auto;
     font-size: 85%;
     line-height: 1.45;
-    border-radius: 6px;
-    background-color: #D0D7DE;
-    color: #fff;
+    border-radius: $border-radius;
+    font-family: $monospace-font;
+    margin: 16px 0;
+    width: 100%;
+    max-width: 100%;
   }
 
   code, tt {
     padding: 0.2em 0.4em;
     margin: 0;
     font-size: 85%;
-    white-space: break-spaces;
-    background-color: #000;
-    color: #fff;
-    border-radius: 6px;
-    font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+    color: $text-color-light;
+    border-radius: 3px;
+    font-family: $monospace-font;
+    overflow-wrap: break-word;
+
+    .dark-mode & {
+      color: $text-color-dark;
+    }
   }
 
   blockquote {
     padding: 0 1em;
-    color: #262b32;
-    border-left: 0.25em solid #262b32;
+    color: #57606a;
+    border-left: 0.25em solid #d0d7de;
+    margin: 16px 0;
+    width: 100%;
+
+    .dark-mode & {
+      color: #8b949e;
+      border-left-color: #30363d;
+    }
   }
 
   details {
-    margin: 60px 20px;
+    margin: 16px 0;
+    padding: 8px 0 8px 16px;
+    border-radius: $border-radius;
+    border: 1px solid $border-color-light;
+    width: 100%;
+
+    .dark-mode & {
+      border-color: $border-color-dark;
+    }
   }
 
   summary {
     cursor: pointer;
-
-    b::before {
-      font-weight: normal;
-    }
+    font-weight: 600;
+    padding: 8px 0;
   }
-
 
   table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: 16px 0;
     font-size: 14px;
     text-align: left;
+    display: block;
+    overflow-x: auto;
 
     th, td {
-      padding: 12px 15px;
-      border: 1px solid #D0D7DE;
-      background-color: transparent;
+      padding: 6px 13px;
+      border: 1px solid $border-color-light;
     }
 
-    th {
-      font-weight: bold;
-      background-color: transparent;
-    }
-  }
-
-  &.dark-mode {
-    a {
-      color: rgba(0, 208, 255, 0.84);
+    tr:nth-child(2n) {
+      background-color: #f6f8fa;
     }
 
-    code, tt {
-      background-color: rgb(255, 255, 255);
-      color: rgba(0, 0, 0);
-    }
+    .dark-mode & {
+      th, td {
+        border-color: $border-color-dark;
+      }
 
-    blockquote {
-      color: #D0D7DE;
-      border-left-color: #D0D7DE;
-    }
-
-    pre {
-      background-color: #ebebeb;
-      color: #000;
-    }
-
-    th, td {
-      border-color: #262b32;
-      color: #fff;
+      tr:nth-child(2n) {
+        background-color: #161b22;
+      }
     }
   }
 
-  @media screen and (min-width: 760px) {
-    h1, h2, h3, h4, h5, h6 {
-      @include heading-styles($text-color-light);
-      font-size: 1.5em;
+  h1, h2, h3, h4, h5, h6 {
+    @include heading-styles($text-color-light, $border-color-light);
+    margin-top: 24px;
+    margin-bottom: 16px;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 2em;
+    padding-bottom: 0.3em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    padding-bottom: 0.3em;
+  }
+
+  h3 {
+    font-size: 1.25em;
+  }
+
+  h4 {
+    font-size: 1em;
+  }
+
+  h5 {
+    font-size: 0.875em;
+  }
+
+  h6 {
+    font-size: 0.85em;
+    color: #57606a;
+  }
+
+  .dark-mode {
+    h1, h2, h3, h4, h5 {
+      @include heading-styles($text-color-dark, $border-color-dark);
     }
 
-    p {
-      font-size: 20px;
-    }
-
-    &.dark-mode h1, &.dark-mode h2, &.dark-mode h3,
-    &.dark-mode h4, &.dark-mode h5, &.dark-mode h6 {
-      @include heading-styles($text-color-dark);
-      border-bottom-color: #262b32 !important;
-    }
-
-    .profile-avatar {
-      width: 250px;
-      height: 250px;
-      border-radius: 50%;
-      margin-bottom: 10px;
+    h6 {
+      color: #8b949e;
     }
   }
 
-  @media screen and (max-width: 760px) {
-    img {
-      max-width: 290px !important;
-      margin: 15px 2px !important;
+  @media (min-width: $container-xl) {
+    max-width: $container-lg;
+  }
+
+  @media (max-width: $container-lg) {
+    margin: 0 16px;
+  }
+
+  @media (max-width: $container-md) {
+    padding: 12px;
+
+    .markdown-search-inner {
+      padding: 12px;
     }
 
-    details {
-      margin: auto;
+    h1 {
+      font-size: 1.8em;
     }
 
-    p {
-      font-size: 10px;
+    h2 {
+      font-size: 1.3em;
     }
 
-    h1, h2, h3, h4, h5, h6 {
-      @include heading-styles($text-color-light);
-      font-size: 1.4em;
+    h3 {
+      font-size: 1.1em;
     }
 
-    &.dark-mode h1, &.dark-mode h2, &.dark-mode h3,
-    &.dark-mode h4, &.dark-mode h5, &.dark-mode h6 {
-      @include heading-styles($text-color-dark);
-      border-bottom-color: #262b32 !important;
+    pre, code {
+      font-size: 80%;
     }
   }
 
-  @media only screen and (max-width: 768px) {
-    max-width: 335px;
-    margin: 10px auto;
-    padding: 10px;
-    background-color: $light-bg-color;
-    border: 1px solid #e1e4e8;
-    box-shadow: $box-shadow-light;
-    position: relative;
+  @media (max-width: $container-sm) {
+    padding: 8px;
+    margin: 0 8px;
 
-    &.dark-mode {
-      border: 1px solid #e1e4e8;
-      box-shadow: $box-shadow-light;
+    h1 {
+      font-size: 1.6em;
     }
 
-    .profile-avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      margin-bottom: 10px;
+    h2 {
+      font-size: 1.2em;
     }
 
-    input {
-      padding: 5px 5px;
-      margin: 15px 10px;
-      border-radius: $border-radius;
-      font-size: 10px;
-      height: 15px;
-      width: 150px;
-      border: 1px solid #e1e4e8;
+    .markdown-search-inner {
+      padding: 8px;
     }
 
     .button-markdown {
-      padding: 10px;
+      padding: 5px 12px;
       font-size: 12px;
-    }
-
-    .error,
-    .text-loading {
-      font-size: 8px;
-      margin-top: 5px;
-    }
-
-    .github-profile {
-      .profile-name {
-        font-size: 24px;
-        margin: 0;
-      }
     }
   }
 }

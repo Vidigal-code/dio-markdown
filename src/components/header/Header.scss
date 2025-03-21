@@ -1,122 +1,347 @@
-$colors: (
-        primary: #000000,
-        secondary: #ffffff,
-        border: #e1e4e8,
-        hover: #000000,
-        hover-text: #ffffff
-);
 
-$sizes: (
-        border-radius: 6px,
-        font-large: 25px,
-        font-small: 10px,
-        button-height: 50px
-);
+$primary-color: #3498db;
+$secondary-color: #2980b9;
+$text-color: #333;
+$text-color-light: #fff;
+$background-light: #f8f9fa;
+$background-dark: #222;
+$hover-light: #e9ecef;
+$hover-dark: #444;
+$transition-speed: 0.3s;
+$border-radius: 4px;
+$header-height: 60px;
 
-$spacing: (
-        button-padding: 8px 16px,
-        button-small-padding: 2px,
-        header-padding-desktop: 20px 25px,
-        header-padding-mobile: 5px 10px
-);
+$breakpoint-sm: 480px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1440px;
+$breakpoint-xxl: 1920px;
 
-$breakpoints: (
-        medium: 1600px,
-        small: 768px
-);
-
-$shadows: (
-        header: 0 0 10px rgba(0, 0, 0, 0.1)
-);
-
-@mixin responsive($breakpoint) {
-  @if $breakpoint == medium {
-    @media only screen and (max-width: map-get($breakpoints, medium)) {
-      @content;
-    }
-  } @else if $breakpoint == small {
-    @media only screen and (max-width: map-get($breakpoints, small)) {
-      @content;
-    }
-  }
+@mixin transition($property: all) {
+  transition: $property $transition-speed ease;
 }
 
-@mixin header-style($bg-color, $text-color) {
-  background-color: $bg-color;
-  color: $text-color;
-  border: 1px solid map-get($colors, border);
-  border-radius: map-get($sizes, border-radius);
-  box-shadow: map-get($shadows, header);
-  padding: map-get($spacing, header-padding-desktop);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 20px auto;
-
-  @include responsive(medium) {
-    max-width: 1100px;
-    min-width: 320px;
-  }
-
-  @include responsive(small) {
-    max-width: 350px;
-    padding: map-get($spacing, header-padding-mobile);
-    font-size: 12px;
-    margin: 5px auto;
-  }
+@mixin box-shadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-@mixin button-style($bg-color, $text-color, $border-color) {
-  min-height: map-get($sizes, button-height);
-  padding: map-get($spacing, button-padding);
-  cursor: pointer;
-  background-color: $bg-color;
-  color: $text-color;
-  border: 1px solid $border-color;
-  border-radius: map-get($sizes, border-radius);
-  transition: all 0.3s ease;
-  font-size: map-get($sizes, font-small);
-
-  &:hover {
-    background-color: map-get($colors, hover);
-    color: map-get($colors, hover-text);
-    border-color: map-get($colors, hover-text);
-  }
-
-  @include responsive(small) {
-    padding: map-get($spacing, button-small-padding);
-    width: map-get($sizes, button-height);
-    height: map-get($sizes, button-height);
-    font-size: map-get($sizes, font-small);
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == sm {
+    @media screen and (max-width: $breakpoint-sm) { @content; }
+  } @else if $breakpoint == md {
+    @media screen and (max-width: $breakpoint-md) { @content; }
+  } @else if $breakpoint == lg {
+    @media screen and (max-width: $breakpoint-lg) { @content; }
+  } @else if $breakpoint == xl {
+    @media screen and (min-width: $breakpoint-lg + 1) and (max-width: $breakpoint-xl) { @content; }
+  } @else if $breakpoint == xxl {
+    @media screen and (min-width: $breakpoint-xl + 1) { @content; }
   }
 }
 
 .header {
-  @include header-style(map-get($colors, primary), map-get($colors, secondary));
-}
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $header-height;
+  background-color: var(--menu-bg, $background-light);
+  @include box-shadow;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
 
-.header-text {
-  font-size: map-get($sizes, font-large);
-  margin-right: 20px;
+  &.dark-mode {
+    --menu-bg: #{$background-dark};
+    --text-color: #{$text-color-light};
+    --hover-bg: #{$hover-dark};
+  }
 
-  @include responsive(small) {
-    font-size: map-get($sizes, font-small);
-    margin-right: 5px;
+  .header-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-color, $text-color);
+    margin-right: 30px;
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    &::before {
+      content: "📝 ";
+      margin-right: 5px;
+    }
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-color, $text-color);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0 10px;
+    margin-left: auto;
+
+    &::before {
+      content: "≡";
+    }
+
+    &.active::before {
+      content: "×";
+    }
+  }
+
+  @include respond-to(xxl) {
+    padding: 0 40px;
+    height: calc(#{$header-height} * 1.2);
+
+    .header-title {
+      font-size: 24px;
+    }
+  }
+
+  @include respond-to(md) {
+    padding: 0 15px;
+
+    .header-title {
+      font-size: 18px;
+      margin-right: 15px;
+    }
+  }
+
+  @include respond-to(sm) {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 10px;
+
+    .menu-toggle {
+      display: block;
+    }
   }
 }
 
-.header-button {
-  @include button-style(
-                  map-get($colors, secondary),
-                  map-get($colors, primary),
-                  map-get($colors, primary)
-  );
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  flex-grow: 1;
 
-  &.dark-mode {
-    @include button-style(
-                    map-get($colors, primary),
-                    map-get($colors, secondary),
-                    map-get($colors, secondary)
-    );
+  li {
+    margin: 0;
+    padding: 0;
+    position: relative;
+
+    a, button {
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+      height: $header-height;
+      color: var(--text-color, $text-color);
+      text-decoration: none;
+      @include transition;
+      border: none;
+      background: none;
+      font-size: 15px;
+      cursor: pointer;
+      white-space: nowrap;
+
+      &:hover, &:focus {
+        background-color: var(--hover-bg, $hover-light);
+        color: $primary-color;
+        outline: none;
+      }
+
+      &.active {
+        color: $primary-color;
+        font-weight: 500;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 15px;
+          right: 15px;
+          height: 3px;
+          background-color: $primary-color;
+        }
+      }
+    }
+
+    .dio-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 10px;
+      padding: 6px 12px;
+      border-radius: $border-radius;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background-color: rgba(0, 0, 0, 0.05);
+      height: auto;
+      @include transition;
+
+      &:hover {
+        background-color: var(--hover-bg, $hover-light);
+      }
+
+      &.dark-mode {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    a[href^="https://"] {
+      &::after {
+        content: "↗";
+        margin-left: 5px;
+        font-size: 12px;
+      }
+    }
+  }
+
+  @include respond-to(xxl) {
+    li {
+      a, button {
+        font-size: 18px;
+        padding: 0 20px;
+        height: calc(#{$header-height} * 1.2);
+      }
+
+      .dio-button {
+        padding: 8px 16px;
+        font-size: 16px;
+      }
+    }
+  }
+
+  @include respond-to(md) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0,0,0,0.2);
+      border-radius: 4px;
+    }
+
+    li {
+      a, button {
+        padding: 0 10px;
+        font-size: 14px;
+      }
+
+      .dio-button {
+        margin: 0 5px;
+        padding: 5px 10px;
+      }
+    }
+  }
+
+  @include respond-to(sm) {
+    position: fixed;
+    top: $header-height;
+    left: 0;
+    right: 0;
+    background-color: var(--menu-bg, $background-light);
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    @include transition(max-height);
+    @include box-shadow;
+    z-index: 999;
+
+    &.open {
+      max-height: calc(100vh - #{$header-height});
+      overflow-y: auto;
+    }
+
+    li {
+      width: 100%;
+
+      a, button {
+        width: 100%;
+        justify-content: flex-start;
+        padding: 12px 20px;
+        height: auto;
+
+        &.active::after {
+          left: 0;
+          right: auto;
+          top: 0;
+          bottom: 0;
+          width: 3px;
+          height: auto;
+        }
+      }
+
+      .dio-button {
+        margin: 10px 20px;
+        width: calc(100% - 40px);
+      }
+    }
+  }
+}
+
+body {
+  padding-top: calc(#{$header-height} + 20px);
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+  @include respond-to(xxl) {
+    padding-top: calc(#{$header-height} * 1.2 + 30px);
+    font-size: 18px;
+  }
+
+  @include respond-to(sm) {
+    padding-top: $header-height;
+  }
+}
+
+.js-menu-toggle-script {
+  display: none;
+}
+
+:root {
+  --menu-bg: #{$background-light};
+  --text-color: #{$text-color};
+  --hover-bg: #{$hover-light};
+  --primary-color: #{$primary-color};
+}
+
+body.dark-mode {
+  --menu-bg: #{$background-dark};
+  --text-color: #{$text-color-light};
+  --hover-bg: #{$hover-dark};
+}
+
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .header {
+    height: 50px;
+  }
+
+  .menu {
+    top: 50px;
+
+    &.open {
+      max-height: calc(100vh - 50px);
+    }
+  }
+
+  body {
+    padding-top: 50px;
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 2),
+screen and (min-resolution: 192dpi) {
+  .header {
+    @include box-shadow;
   }
 }
