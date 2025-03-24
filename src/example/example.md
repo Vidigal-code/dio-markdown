@@ -9,9 +9,11 @@
 
 <div style="display: flex; justify-content: center; align-items: center; text-align: center; margin-bottom: 3px;">
 <img src="https://capsule-render.vercel.app/api?type=Rect&amp;color=0d1117&amp;height=70&amp;section=header&amp;text=Vidigal-code&amp;animation=scaleIn&amp;fontSize=30&amp;fontColor=2aa889" width="100%">
-<img src="https://readme-typing-svg.herokuapp.com/?color=2aa889&amp;size=40&amp;center=true&amp;vCenter=true&amp;width=1000&amp;lines=Hello,+I+am+Kauan+Vidigal;I+am+Developer+Full-Stack;Welcome+To+My+Profile!" alt="Typing SVG" />
 </div>
 
+<div style="display: flex; justify-content: center; align-items: center; text-align: center; margin-bottom: 3px;">
+<img src="https://readme-typing-svg.herokuapp.com/?color=2aa889&amp;size=40&amp;center=true&amp;vCenter=true&amp;width=1000&amp;lines=Hello,+I+am+Kauan+Vidigal;I+am+Developer+Full-Stack;Welcome+To+My+Profile!" alt="Typing SVG" />
+</div>
 
 <p align="center">
   <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=100:2aa889,5:2aa889&height=70&section=header"/>
@@ -225,8 +227,9 @@
 
 <div style="display: flex; justify-content: center; align-items: center; text-align: center; margin-bottom: 3px;">
   <img src="https://readme-typing-svg.herokuapp.com/?color=2aa889&amp;size=25&amp;center=true&amp;vCenter=true&amp;width=1000&amp;lines=Number+of+visitors" alt="Typing SVG" />
-  <p align="center"><img src="https://profile-counter.glitch.me/{Vidigal-code}/count.svg" align="center"></p> 
 </div>
+
+  <p align="center"><img src="https://profile-counter.glitch.me/{Vidigal-code}/count.svg" align="center"></p> 
 
 <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
   <img src="https://capsule-render.vercel.app/api?type=waving&amp;color=100:2aa889,0:2aa889&amp;height=70&amp;section=header" width="100%">
