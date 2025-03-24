@@ -3,13 +3,13 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import "./MarkdownSearch.scss";
-import { useDarkMode } from "../button/DarkModeProvider";
+import { useDarkMode } from "../provide/DarkModeProvider";
+import DOMPurify from 'dompurify';
+import {marked} from "marked";
+import {API_GITHUB, API_GITHUB_FINAL_MASTER, API_GITHUB_USERS} from "../../api/api.ts";
+import {GitHubUser} from "../../api/interface.ts";
 
-interface GitHubUser {
-  avatar_url: string;
-  name: string;
-  login: string;
-}
+
 
 const MarkdownSearch: React.FC = () => {
 
@@ -21,8 +21,8 @@ const MarkdownSearch: React.FC = () => {
   const [userProfile, setUserProfile] = useState<GitHubUser | null>(null);
   const { darkMode } = useDarkMode();
 
-  const handleSearch = () => {
 
+  const handleSearch = () => {
     if (!username.trim()) return;
 
     setLoadingProfile(true);
@@ -31,10 +31,12 @@ const MarkdownSearch: React.FC = () => {
     setMarkdownContent("");
     setUserProfile(null);
 
-    fetch(`https://api.github.com/users/${username}`)
+    const url: string = `${API_GITHUB_USERS}${username}`;
+
+    fetch(url)
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Perfil não encontrado.");
+            return Promise.reject(new Error("Profile not found."));
           }
           return response.json();
         })
@@ -42,36 +44,43 @@ const MarkdownSearch: React.FC = () => {
           setUserProfile({
             avatar_url: data.avatar_url,
             name: data.name || data.login,
-            login: data.login
+            login: data.login,
           });
           setLoadingProfile(false);
-
-          return fetch(
-              `https://raw.githubusercontent.com/${username}/${username}/main/README.md`
-          );
+          return fetchReadme(username);
         })
-        .then((response) => {
-          if (!response.ok) {
-            return fetch(
-                `https://raw.githubusercontent.com/${username}/${username}/master/README.md`
-            );
+        .then((readmeText) => {
+          if (readmeText) {
+            const htmlContent = marked.parse(readmeText) as string;
+            const sanitizedHTML = DOMPurify.sanitize(htmlContent);
+            setMarkdownContent(sanitizedHTML);
+            setLoadingStats(false);
           }
-          return response;
-        })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("README.md não disponível.");
-          }
-          return response.text();
-        })
-        .then((text) => {
-          setMarkdownContent(text);
-          setLoadingStats(false);
         })
         .catch((error) => {
           setError(error.message);
           setLoadingProfile(false);
           setLoadingStats(false);
+        });
+  };
+
+
+  const fetchReadme = (username: string) => {
+
+    const url: string = `${API_GITHUB}${username}/${username}/${API_GITHUB_FINAL_MASTER}`;
+
+    return fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            return fetch(url);
+          }
+          return response;
+        })
+        .then((response) => {
+          if (!response.ok) {
+            return Promise.reject(new Error("README.md not available."));
+          }
+          return response.text();
         });
   };
 
@@ -91,6 +100,7 @@ const MarkdownSearch: React.FC = () => {
     }
   }, [username]);
 
+
   return (
       <div className="markdown-search-container">
         <div className={`markdown-search ${darkMode ? "dark-mode" : ""}`}>
@@ -98,11 +108,11 @@ const MarkdownSearch: React.FC = () => {
             <div className="input-button-wrapper">
               <input
                   type="text"
-                  placeholder="Digite o nome de usuário do GitHub..."
+                  placeholder="Enter your GitHub username..."
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  aria-label="Nome de usuário do GitHub"
+                  aria-label="GitHub username"
               />
               <button
                   className={`button-markdown ${darkMode ? "dark-mode" : ""}`}
@@ -112,8 +122,8 @@ const MarkdownSearch: React.FC = () => {
               </button>
             </div>
 
-            {loadingProfile && <div className="text-loading">Carregando perfil...</div>}
-            {loadingStats && !loadingProfile && <div className="text-loading">Carregando README...</div>}
+            {loadingProfile && <div className="text-loading">Loading profile...</div>}
+            {loadingStats && !loadingProfile && <div className="text-loading">Loading README...</div>}
             {error && <div className="error">{error}</div>}
 
             {userProfile && (
@@ -141,8 +151,8 @@ const MarkdownSearch: React.FC = () => {
                   </div>
               ) : (
                   !loadingStats && !error && username.length > 2 && (
-                      <div className="no-readme">
-                        Nenhum README.md encontrado para este usuário.
+                      <div className="error">
+                        No README.md found for this user.
                       </div>
                   )
               )}

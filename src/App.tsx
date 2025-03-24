@@ -3,7 +3,7 @@ import MarkdownLoadGithub from "./components/markdownloadgithub/MarkdownLoadGith
 import DioSearch from "./components/dio/DioSearch";
 import MarkdownSearch from "./components/markdownsearch/MarkdownSearch";
 import Header from "./components/header/Header";
-import { DarkModeProvider, useDarkMode } from "./components/button/DarkModeProvider";
+import { DarkModeProvider, useDarkMode } from "./components/provide/DarkModeProvider";
 import Footer from "./components/footer/Footer.tsx";
 
 const AppContent: React.FC = () => {
