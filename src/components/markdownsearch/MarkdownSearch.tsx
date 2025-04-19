@@ -3,15 +3,14 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import "./MarkdownSearch.scss";
-import { useDarkMode } from "../provide/DarkModeProvider";
 import DOMPurify from 'dompurify';
 import {marked} from "marked";
-import {API_GITHUB, API_GITHUB_FINAL_MASTER, API_GITHUB_USERS} from "../../api/api.ts";
-import {GitHubUser} from "../../api/interface.ts";
+import {API_GITHUB, API_GITHUB_FINAL_MASTER, API_GITHUB_USERS} from "../../api/Api.ts";
+import {GitHubUser, MarkdownDarkModeProps} from "../../api/Interface.ts";
 
 
 
-const MarkdownSearch: React.FC = () => {
+const MarkdownSearch:  React.FC<MarkdownDarkModeProps> = ({ darkMode }) => {
 
   const [username, setUsername] = useState("");
   const [markdownContent, setMarkdownContent] = useState<string>("");
@@ -19,7 +18,6 @@ const MarkdownSearch: React.FC = () => {
   const [loadingStats, setLoadingStats] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [userProfile, setUserProfile] = useState<GitHubUser | null>(null);
-  const { darkMode } = useDarkMode();
 
 
   const handleSearch = () => {

@@ -24,11 +24,11 @@ const AppContent: React.FC = () => {
                 toggleDarkMode={toggleDarkMode}
             />
             {activeMenu === "load" ? (
-                <MarkdownLoadGithub/>
+                <MarkdownLoadGithub darkMode={darkMode}/>
             ) : activeMenu === "git-search" ? (
-                <MarkdownSearch/>
+                <MarkdownSearch darkMode={darkMode}/>
             ) : activeMenu === "dio-search" ? (
-                <DioSearch/>
+                <DioSearch darkMode={darkMode}/>
             ) : null}
             <div className="content-spacer">
                 <Footer darkMode={darkMode}/>

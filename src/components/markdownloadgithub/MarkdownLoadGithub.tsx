@@ -2,15 +2,15 @@ import React, {useRef, useState} from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
-import {useDarkMode} from "../provide/DarkModeProvider";
 import "./MarkdownLoadGithub.scss";
-import {MarkdownEditorProps} from "../../api/interface.ts";
+import {MarkdownEditorProps} from "../../api/Interface.ts";
 import {marked} from "marked";
 import DOMPurify from "dompurify";
-import {API_GITHUB, API_GITHUB_FINAL_MASTER} from "../../api/api.ts";
+import {API_GITHUB, API_GITHUB_FINAL_MASTER} from "../../api/Api.ts";
 
 
-const MarkdownEditor: React.FC<MarkdownEditorProps> = ({initialContent = ""}) => {
+
+const MarkdownEditor: React.FC<MarkdownEditorProps> = ({initialContent = "", darkMode}) => {
 
     const [markdownContent, setMarkdownContent] = useState<string>(initialContent);
     const [username, setUsername] = useState<string>("");
@@ -20,7 +20,6 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({initialContent = ""}) =>
     const [history, setHistory] = useState<string[]>([initialContent]);
     const [historyIndex, setHistoryIndex] = useState<number>(0);
     const [isEditorActive, setIsEditorActive] = useState(true);
-    const {darkMode} = useDarkMode();
     const inputFileRef = useRef<HTMLInputElement>(null);
 
     const saveToHistory = (content: string) => {

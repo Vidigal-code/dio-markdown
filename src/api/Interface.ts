@@ -5,7 +5,12 @@ export interface GitHubUser {
 }
 
 export interface MarkdownEditorProps {
+    darkMode: boolean;
     initialContent?: string;
+}
+
+export interface MarkdownDarkModeProps {
+    darkMode: boolean;
 }
 
 export interface File {

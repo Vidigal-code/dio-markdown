@@ -3,15 +3,14 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import "./DioSearch.scss";
-import {useDarkMode} from "../provide/DarkModeProvider";
 import logoFull from "../../assets/logo-full.svg";
-import {File} from "../../api/interface.ts";
-import {USERNAME, REPO, PATH, API_GITHUB_COM, API_GITHUB, GITHUB_SITE_WEB} from "../../api/api.ts";
+import {File, MarkdownDarkModeProps} from "../../api/Interface.ts";
+import {USERNAME, REPO, PATH, API_GITHUB_COM, API_GITHUB, GITHUB_SITE_WEB} from "../../api/Api.ts";
 import {marked} from "marked";
 import DOMPurify from "dompurify";
 
 
-const DioSearch: React.FC = () => {
+const DioSearch: React.FC<MarkdownDarkModeProps> = ({ darkMode }) => {
 
     const [username, setUsername] = useState(USERNAME);
     const [repo, setRepo] = useState(REPO);
@@ -23,7 +22,6 @@ const DioSearch: React.FC = () => {
     const [markdownContent, setMarkdownContent] = useState<string>("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const {darkMode} = useDarkMode();
 
     const fetchFiles = useCallback(() => {
 

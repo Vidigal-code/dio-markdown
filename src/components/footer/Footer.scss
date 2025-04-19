@@ -3,8 +3,7 @@ $background-light: #f8f9fa;
 $background-dark: #222;
 
 .footer-container {
-  position: fixed;
-  bottom: 0;
+  position: absolute;
   left: 0;
   right: 0;
   display: flex;
@@ -15,7 +14,7 @@ $background-dark: #222;
   color: black;
   font-family: Arial, sans-serif;
   z-index: 1000;
-  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 
   &.dark-mode {
     background: $background-dark;
@@ -91,5 +90,5 @@ $background-dark: #222;
 }
 
 .content-spacer {
-  margin-bottom: 70px;
+  margin-top: 5px;
 }
