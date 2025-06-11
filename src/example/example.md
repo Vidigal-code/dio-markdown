@@ -2,18 +2,21 @@
 
 <p align="center">
   <a href="https://vidigal-code.github.io/React-portfolio/">
-    <img width="340" height="320" src="https://th.bing.com/th/id/R.c0d1b11e54c2b07f7353dd160e8ba80d?rik=BH2sjO5Vy1%2fC%2fg&pid=ImgRaw&r=0">
+    <img width="650" height="350" src="https://github.com/Vidigal-code/Vidigal-Code/blob/main/GIF_2.gif?raw=true">
   </a>
 </p>
 
 
-<div style="display: flex; justify-content: center; align-items: center; text-align: center; margin-bottom: 3px;">
-<img src="https://capsule-render.vercel.app/api?type=Rect&amp;color=0d1117&amp;height=70&amp;section=header&amp;text=Vidigal-code&amp;animation=scaleIn&amp;fontSize=30&amp;fontColor=2aa889" width="100%">
+<img width=100% src="https://capsule-render.vercel.app/api?type=Rect&color=0d1117&height=70&section=header&text=Vidigal-code&animation=scaleIn&fontSize=30&fontColor=2aa889"/>
+
+
+<div align="center">
+<img width=100% src="https://readme-typing-svg.herokuapp.com/?color=2aa889&size=40&center=true&vCenter=true&width=1000&lines=Hello,+I+am+Kauan+Vidigal;I+am+Developer+Full-Stack;Welcome+To+My+Profile!"/>
 </div>
 
-<div style="display: flex; justify-content: center; align-items: center; text-align: center; margin-bottom: 3px;">
-<img src="https://readme-typing-svg.herokuapp.com/?color=2aa889&amp;size=40&amp;center=true&amp;vCenter=true&amp;width=1000&amp;lines=Hello,+I+am+Kauan+Vidigal;I+am+Developer+Full-Stack;Welcome+To+My+Profile!" alt="Typing SVG" />
-</div>
+
+
+
 
 <p align="center">
   <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=100:2aa889,5:2aa889&height=70&section=header"/>
@@ -26,7 +29,7 @@
 
 
 <p align="right">
-  <img align="right" alt="Coding" width="340" height="320" src="https://i.gifer.com/origin/f7/f753421e72b10f0a4c47b97736781e7e.gif">
+  <img align="right" alt="Coding" width="340" height="320" src="https://github.com/Vidigal-code/Vidigal-Code/blob/main/GIF_1.gif?raw=true">
   <br/>
 </p>
 <br/>
@@ -103,7 +106,7 @@
  <br/>
 
 <p align="center">
-<a href="https://gitroll.io/profile/uY6OqgUA63rNk53a0rqTp1fqDuMH2" target="_blank"><img src="https://gitroll.io/api/badges/profiles/v1/uY6OqgUA63rNk53a0rqTp1fqDuMH2?theme=dark" alt="GitRoll Profile Badge" style="width: 400px; height: auto;"/></a>
+<a href="https://gitroll.io/profile/uY6OqgUA63rNk53a0rqTp1fqDuMH2" target="_blank"><img src="https://gitroll.io/api/badges/profiles/v1/uY6OqgUA63rNk53a0rqTp1fqDuMH2?theme=light" alt="GitRoll Profile Badge" style="width: 400px; height: auto;"/></a>
 </div>
 
  <br/>
@@ -176,7 +179,7 @@
 <a href="https://yarnpkg.com/" target="_blank"><img align="center" alt="Vidigal-Yarn" height="50" width="50" src="https://yarnpkg.com/img/yarn-favicon.svg"></a>
 <a href="https://www.npmjs.com/" target="_blank"><img align="center" alt="Vidigal-Npm" height="50" width="50" src="https://static-production.npmjs.com/58a19602036db1daee0d7863c94673a4.png"></a>
 <a href="https://getcomposer.org/" target="_blank"><img align="center" alt="Vidigal-Composer" height="50" width="50" src="https://getcomposer.org/img/logo-composer-transparent5.png"></a>
-<a href="https://mvnrepository.com/" target="_blank"><img align="center" alt="Vidigal-Maven" height="50" width="50" src="https://mvnrepository.com/assets/images/7080b8b0f6f48e6fbaffd5f9d85fcc7f-favicon.ico"></a>
+    <a href="https://mvnrepository.com/" target="_blank"><img align="center" alt="Vidigal-Maven" height="50" width="50" src="https://mvnrepository.com/assets/images/e8a73ff26e5b1e3f20868111d80c5544-favicon.ico"></a>
 #
 ### [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fantasy+&size=30&pause=1000&color=2AA889&multiline=true&width=445&lines=Framework%3A)](https://git.io/typing-svg)
 <a href="https://www.electronjs.org" target="_blank"><img align="center" alt="Vidigal-AWS" height="50" width="50" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/electron/electron-original.svg"></a>
@@ -225,13 +228,18 @@
 
 
 
-<div style="display: flex; justify-content: center; align-items: center; text-align: center; margin-bottom: 3px;">
-  <img src="https://readme-typing-svg.herokuapp.com/?color=2aa889&amp;size=25&amp;center=true&amp;vCenter=true&amp;width=1000&amp;lines=Number+of+visitors" alt="Typing SVG" />
+<div align="center">
+<img width=100% src="https://readme-typing-svg.herokuapp.com/?color=2aa889&size=25&center=true&vCenter=true&width=1000&lines=Number+of+visitors"/>
 </div>
 
-  <p align="center"><img src="https://profile-counter.glitch.me/{Vidigal-code}/count.svg" align="center"></p> 
 
-<div style="display: flex; justify-content: center; align-items: center; text-align: center;">
-  <img src="https://capsule-render.vercel.app/api?type=waving&amp;color=100:2aa889,0:2aa889&amp;height=70&amp;section=header" width="100%">
-</div>
 
+
+
+
+  <div align="center">
+<p align="center"><img align="center" src="https://profile-counter.glitch.me/{Vidigal-code}/count.svg" /></p> 
+<br></div>
+
+
+<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=100:2aa889,0:2aa889&height=70&section=header"/>
