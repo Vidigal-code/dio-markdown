@@ -1,16 +1,16 @@
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import "./MarkdownLoadGithub.scss";
-import {MarkdownEditorProps} from "../../api/Interface.ts";
-import {marked} from "marked";
+import { MarkdownEditorProps } from "../../api/Interface.ts";
+import { marked } from "marked";
 import DOMPurify from "dompurify";
-import {API_GITHUB, API_GITHUB_FINAL_MASTER} from "../../api/Api.ts";
+import { API_GITHUB, API_GITHUB_FINAL_MASTER } from "../../api/Api.ts";
 
 
 
-const MarkdownEditor: React.FC<MarkdownEditorProps> = ({initialContent = "", darkMode}) => {
+const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ initialContent = "", darkMode }) => {
 
     const [markdownContent, setMarkdownContent] = useState<string>(initialContent);
     const [username, setUsername] = useState<string>("");
@@ -74,35 +74,35 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({initialContent = "", dar
     };
 
     const fetchBaseMarkdown = () => {
-    const url = `${import.meta.env.BASE_URL}example/example.md`;
+        const url = `${import.meta.env.BASE_URL}example/example.md`;
 
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                return Promise.reject(new Error("Base Markdown template not available."));
-            }
-            return response.text();
-        })
-        .then(text => {
-            if (text) {
-                const htmlContent = marked.parse(text) as string;
-                const sanitizedHTML = DOMPurify.sanitize(htmlContent);
-                setMarkdownContent(sanitizedHTML);
-                setLiveMarkdown(sanitizedHTML);
-                saveToHistory(sanitizedHTML);
-                setError(null);
-            }
-        })
-        .catch(error => {
-            console.error('Error loading base Markdown:', error);
-            setError(error instanceof Error ? error.message : 'Failed to load template');
-        });
-};
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    return Promise.reject(new Error("Base Markdown template not available."));
+                }
+                return response.text();
+            })
+            .then(text => {
+                if (text) {
+                    const htmlContent = marked.parse(text) as string;
+                    const sanitizedHTML = DOMPurify.sanitize(htmlContent);
+                    setMarkdownContent(sanitizedHTML);
+                    setLiveMarkdown(sanitizedHTML);
+                    saveToHistory(sanitizedHTML);
+                    setError(null);
+                }
+            })
+            .catch(error => {
+                console.error('Error loading base Markdown:', error);
+                setError(error instanceof Error ? error.message : 'Failed to load template');
+            });
+    };
 
 
 
     const downloadMarkdown = () => {
-        const blob = new Blob([markdownContent], {type: "text/markdown"});
+        const blob = new Blob([markdownContent], { type: "text/markdown" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
@@ -221,13 +221,13 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({initialContent = "", dar
                 {error && <div className="error-message">{error}</div>}
 
                 <div className="editor-preview-container">
-          <textarea
-              className="markdown-editor"
-              placeholder="Write your markdown here..."
-              value={markdownContent}
-              onChange={handleInputChange}
-              aria-label="Markdown editor"
-          />
+                    <textarea
+                        className="markdown-editor"
+                        placeholder="Write your markdown here..."
+                        value={markdownContent}
+                        onChange={handleInputChange}
+                        aria-label="Markdown editor"
+                    />
                     <div className="markdown-preview">
                         <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
                             {liveMarkdown}
@@ -304,7 +304,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({initialContent = "", dar
                     <input
                         type="file"
                         accept=".md,text/markdown,text/x-markdown"
-                        style={{display: "none"}}
+                        style={{ display: "none" }}
                         ref={inputFileRef}
                         onChange={handleFileUpload}
                     />
