@@ -74,31 +74,31 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({initialContent = "", dar
     };
 
     const fetchBaseMarkdown = () => {
+    const url = `${import.meta.env.BASE_URL}example/example.md`;
 
-        const url: string = `${API_GITHUB}Vidigal-code/dio-markdown/main/src/example/example.md`;
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                return Promise.reject(new Error("Base Markdown template not available."));
+            }
+            return response.text();
+        })
+        .then(text => {
+            if (text) {
+                const htmlContent = marked.parse(text) as string;
+                const sanitizedHTML = DOMPurify.sanitize(htmlContent);
+                setMarkdownContent(sanitizedHTML);
+                setLiveMarkdown(sanitizedHTML);
+                saveToHistory(sanitizedHTML);
+                setError(null);
+            }
+        })
+        .catch(error => {
+            console.error('Error loading base Markdown:', error);
+            setError(error instanceof Error ? error.message : 'Failed to load template');
+        });
+};
 
-        fetch(url)
-            .then((response) => {
-                if (!response.ok) {
-                    return Promise.reject(new Error("Base Markdown template not available."));
-                }
-                return response.text();
-            })
-            .then((text) => {
-                if (text) {
-                    const htmlContent = marked.parse(text) as string;
-                    const sanitizedHTML = DOMPurify.sanitize(htmlContent);
-                    setMarkdownContent(sanitizedHTML);
-                    setLiveMarkdown(sanitizedHTML);
-                    saveToHistory(sanitizedHTML);
-                    setError(null);
-                }
-            })
-            .catch((error) => {
-                console.error('Error loading base Markdown:', error);
-                setError(error instanceof Error ? error.message : 'Failed to load template');
-            });
-    };
 
 
     const downloadMarkdown = () => {
