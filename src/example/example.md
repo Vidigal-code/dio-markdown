@@ -227,7 +227,7 @@
 <a href="https://spring.io" target="_blank"><img align="center" alt="Vidigal-Spring" height="50" width="50" src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg"></a>
 <a href="https://nextjs.org" target="_blank"><img align="center" alt="Vidigal-NextJS" height="50" width="50" src="https://nextjs.org/favicon.ico"></a>
 <a href="https://www.slimframework.com/" target="_blank"><img align="center" alt="Vidigal-Slim" height="50" width="50" src="https://www.slimframework.com/assets/images/favicon.png"></a>
-<a href="https://nestjs.com/" target="_blank"><img align="center" alt="Vidigal-NestJS" height="50" width="50" src="https://nestjs.com/favicon-32x32.42b683bd.png"></a>
+<a href="https://nestjs.com/" target="_blank"><img align="center" alt="Vidigal-NestJS" height="50" width="50" src="https://docs.nestjs.com/apple-touch-icon.png"></a>
 
 #
 
