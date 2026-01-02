@@ -102,9 +102,7 @@
 
  <br/>
 
-<p align="center">
- <img src = "https://github-readme-streak-stats.herokuapp.com?user=Vidigal-code&theme=android-dark&hide_border=true" width = 400>
-</p>
+
  <br/>
 
  <br/>
@@ -115,9 +113,7 @@
 
  <br/>
 
-<p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=Vidigal-code&theme=matrix&row=2&no-bg=true&column=3&margin-w=15&margin-h=15" />
-</p>
+
 
  <br/>
 
