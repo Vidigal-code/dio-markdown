@@ -1,3 +1,4 @@
+
 <br/>
 
 <p align="center">
@@ -15,12 +16,11 @@
 </div>
 
 
-
-
-
 <p align="center">
   <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=100:2aa889,5:2aa889&height=70&section=header"/>
 </p>
+
+<details>
 
 <h2 align="center">Kauan Vidigal ✅</h2>
 <br/>
@@ -58,27 +58,18 @@
 <br/>
 <br/>
 <br/>
-<details>
 
   <summary><b>💻Information</b></summary>
   </br>
 
-- > ``📲Link to my portfolio`` : { [Portfolio](https://vidigal-code.github.io/React-portfolio/) }
-
->
-
-- > ``💾Link to my projects`` : { [Projects](https://vidigal-code.github.io/React-portfolio/#projects?lang=en) }
-
->
-
-- > ``💪Certificates link`` : { [Certificates](https://vidigal-code.github.io/React-portfolio/#courses) }
-
->
-
-- > ``👨🏻‍💻 Another account`` : { [Account](https://github.com/SoftVidigal) }
-
->
-</details>
+- >``📲Link to my portfolio`` : { [Portfolio](https://vidigal-code.github.io/React-portfolio/) }
+  >
+- >``💾Link to my projects`` : { [Projects](https://vidigal-code.github.io/React-portfolio/projects/?lang=en&theme=dark) }
+  >
+- >``💪Certificates link`` : { [Certificates](https://vidigal-code.github.io/React-portfolio/courses/?lang=en&theme=dark) }
+  >
+- >``👨🏻‍💻 Another account`` : { [Account](https://github.com/SoftVidigal) }
+  >
 </p>
 
 <br/>
@@ -86,7 +77,7 @@
 <br/>
 <br/>
 
-<h3 align="center">Contact :</h3>
+<h3 align="center">Contact :</h3>  
 <p align="center">
 <a href="mailto:kauanvidigalcontato@gmail.com" target="blank"><img align="center" src="https://cdn-icons-png.flaticon.com/128/2630/2630483.png" alt="vidigal-code" height="30" width="40" /></a>
 <a href="https://www.linkedin.com/in/kauan-vidigal/" target="blank"><img align="center" src="https://cdn-icons-png.flaticon.com/128/2630/2630663.png" alt="vidigal-code" height="30" width="40" /></a>
@@ -102,9 +93,7 @@
 
  <br/>
 
-<p align="center">
- <img src = "https://github-readme-streak-stats.herokuapp.com?user=Vidigal-code&theme=android-dark&hide_border=true" width = 400>
-</p>
+
  <br/>
 
  <br/>
@@ -114,10 +103,7 @@
 </div>
 
  <br/>
-
-<p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=Vidigal-code&theme=matrix&row=2&no-bg=true&column=3&margin-w=15&margin-h=15" />
-</p>
+ 
 
  <br/>
 
@@ -127,6 +113,7 @@
 <br/>
 <br/>
 <br/>
+
 
 # Skills:
 
@@ -206,8 +193,8 @@
 <a href="https://yarnpkg.com/" target="_blank"><img align="center" alt="Vidigal-Yarn" height="50" width="50" src="https://yarnpkg.com/img/yarn-favicon.svg"></a>
 <a href="https://www.npmjs.com/" target="_blank"><img align="center" alt="Vidigal-NPM" height="50" width="50" src="https://static-production.npmjs.com/58a19602036db1daee0d7863c94673a4.png"></a>
 <a href="https://getcomposer.org/" target="_blank"><img align="center" alt="Vidigal-Composer" height="50" width="50" src="https://getcomposer.org/img/logo-composer-transparent5.png"></a>
-<a href="https://mvnrepository.com/" target="_blank"><img align="center" alt="Vidigal-Maven" height="50" width="50" src="https://camo.githubusercontent.com/c7008ad2ac87357001c8a841fe626bb21cc8756ffb2288af05a3188b440b7e1c/68747470733a2f2f6d766e7265706f7369746f72792e636f6d2f6173736574732f696d616765732f65386137336666323665356231653366323038363831313164383063353534342d66617669636f6e2e69636f"></a>
-<a href="https://gradle.org/" target="_blank"><img align="center" alt="Vidigal-Gradle" height="50" width="50" src="https://gradle.org/icon/favicon-32x32.png"></a>
+<a href="https://mvnrepository.com/" target="_blank"><img align="center" alt="Vidigal-Maven" height="50" width="50" src="https://mvnrepository.com/assets/images/e8a73ff26e5b1e3f20868111d80c5544-favicon.ico"></a>
+<a href="https://gradle.org/" target="_blank"><img align="center" alt="Vidigal-Gradle" height="50" width="50" src="https://gradle.org/assets/icon/favicon.ico"></a>
 
 #
 
@@ -278,7 +265,8 @@
 
 ##   
 
-<!-- <div align="center">
+  
+ <!-- <div align="center">
 <img width=100% src="https://readme-typing-svg.herokuapp.com/?color=2aa889&size=25&center=true&vCenter=true&width=1000&lines=Number+of+visitors"/>
 </div> -->
 
@@ -288,8 +276,10 @@
 
 
   <div align="center">
-<!-- <p align="center"><img align="center" src="https://profile-counter.glitch.me/{Vidigal-code}/count.svg" /></p> -->
+ <!-- <p align="center"><img align="center" src="https://profile-counter.glitch.me/{Vidigal-code}/count.svg" /></p> -->
 <br></div>
 
 
 <img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=100:2aa889,0:2aa889&height=70&section=header"/>
+
+</details>
